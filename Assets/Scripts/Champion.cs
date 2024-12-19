@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 
 // Abstract class for Champion
 public abstract class Champion
