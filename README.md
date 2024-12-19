@@ -1,6 +1,10 @@
 # TheProject Unity
 
-# Classes communes
+## Fonctionnalités
+- Ce jeu est inspiré de Totally Accurate Battle Simulator
+- Les attacks ne sont déclenchés que si on est sûre de toucher l'ennemi
+
+## Classes communes
 
 ### Entity
 - `String name`
@@ -19,6 +23,7 @@
 ### Champion
 - `Entity entity`
 - `Health health`
+- `List<Item> items`
 - `Attack attack`
 - `Mouvement mouvement`
 
@@ -34,7 +39,7 @@
 ### Attack
 - `ChampionAbility championAbility`
 - `# Upgrade`
-- `float cooldown` (0.2–1.5)
+- `float cooldown` (0.2s–1.5s)
 - `float distance`
 - `float damage`
 - `# GetDamage`
