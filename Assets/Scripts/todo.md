@@ -10,4 +10,6 @@ Slow walk on sand, fall into holes, avoid obstacles
 
 - Make Opponents appear from map data, a symbol for each unit. Display them with a red tint.
 
-- Make the movement for the units
+- Make the movement for the units NAVMESH
+
+- Tag ennemis et amis

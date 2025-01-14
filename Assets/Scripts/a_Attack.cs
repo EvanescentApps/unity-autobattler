@@ -1,5 +1,4 @@
 
-// Abstract class for Attack
 public class a_Attack : Attribute
 {
     public float Cooldown { get; protected set; }

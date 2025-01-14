@@ -875,3 +875,100 @@ Memory consumption went from 91.7 MB to 91.1 MB.
 Total: 6.531627 ms (FindLiveObjects: 0.510959 ms CreateObjectMapping: 0.179562 ms MarkObjects: 4.933518 ms  DeleteObjects: 0.900045 ms)
 
 Prepare: number of updated asset objects reloaded= 0
+========================================================================
+Received Import Request.
+  Time since last request: 1164.829930 seconds.
+  path: Assets/MyCharacterAnimator.controller
+  artifactKey: Guid(6fd2b8a1586d87baf963189cbb45bb00) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/MyCharacterAnimator.controller using Guid(6fd2b8a1586d87baf963189cbb45bb00) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: 'e1a0b84bcb3707da9acd66d9828a1cae') in 0.027639895 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 10
+
+========================================================================
+Received Import Request.
+  Time since last request: 31.713152 seconds.
+  path: Assets/Scripts/DragNDrop.cs
+  artifactKey: Guid(411828f4e6c0045ff907dba4bd9de151) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/DragNDrop.cs using Guid(411828f4e6c0045ff907dba4bd9de151) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: '3344797d1586d7194343751f6c9baf25') in 0.000665308 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 0
+
+========================================================================
+Received Import Request.
+  Time since last request: 2.479388 seconds.
+  path: Assets/Scripts/PlayerData.cs
+  artifactKey: Guid(59b20881f8a024de4a66e7d74d660ec1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/PlayerData.cs using Guid(59b20881f8a024de4a66e7d74d660ec1) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: '975f83254b5fc6d97d3bd0a1a03b810b') in 0.00048854 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 0
+
+========================================================================
+Received Import Request.
+  Time since last request: 1.497942 seconds.
+  path: Assets/Scripts/MovementOld.cs
+  artifactKey: Guid(1bc210fe3baf94477a1d0b50a2347c5f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/MovementOld.cs using Guid(1bc210fe3baf94477a1d0b50a2347c5f) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: 'e584cd4a2ad57ad06f114632ab29b6d7') in 0.000494197 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 0
+
+========================================================================
+Received Import Request.
+  Time since last request: 1.373028 seconds.
+  path: Assets/Scripts/HealthAbstract.cs
+  artifactKey: Guid(63097197cf28f2be4926a1ecfc62130b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/HealthAbstract.cs using Guid(63097197cf28f2be4926a1ecfc62130b) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: 'c97889424b1d7e7fc0050b2a124bab07') in 0.000584222 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 0
+
+========================================================================
+Received Import Request.
+  Time since last request: 7.553753 seconds.
+  path: Assets/Scripts/ArenaGenerator.cs
+  artifactKey: Guid(a3e72117c0ecf4648887af6cb6084fd3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/ArenaGenerator.cs using Guid(a3e72117c0ecf4648887af6cb6084fd3) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: '7020d80e27b38b34a921a063ca2160d9') in 0.00078299 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 0
+
+========================================================================
+Received Prepare
+Begin MonoManager ReloadAssembly
+- Loaded All Assemblies, in  0.734 seconds
+Refreshing native plugins compatible for Editor in 0.43 ms, found 0 plugins.
+Native extension for LinuxStandalone target not found
+Native extension for WebGL target not found
+Mono: successfully reloaded assembly
+- Finished resetting the current domain, in  0.907 seconds
+Domain Reload Profiling: 1643ms
+	BeginReloadAssembly (197ms)
+		ExecutionOrderSort (0ms)
+		DisableScriptedObjects (10ms)
+		BackupInstance (0ms)
+		ReleaseScriptingObjects (0ms)
+		CreateAndSetChildDomain (58ms)
+	RebuildCommonClasses (43ms)
+	RebuildNativeTypeToScriptingClass (10ms)
+	initialDomainReloadingComplete (40ms)
+	LoadAllAssembliesAndSetupDomain (446ms)
+		LoadAssemblies (343ms)
+		RebuildTransferFunctionScriptingTraits (0ms)
+		AnalyzeDomain (183ms)
+			TypeCache.Refresh (8ms)
+				TypeCache.ScanAssembly (0ms)
+			BuildScriptInfoCaches (164ms)
+			ResolveRequiredComponents (7ms)
+	FinalizeReload (908ms)
+		ReleaseScriptCaches (0ms)
+		RebuildScriptCaches (0ms)
+		SetupLoadedEditorAssemblies (730ms)
+			LogAssemblyErrors (0ms)
+			InitializePlatformSupportModulesInManaged (5ms)
+			SetLoadedEditorAssemblies (6ms)
+			BeforeProcessingInitializeOnLoad (127ms)
+			ProcessInitializeOnLoadAttributes (546ms)
+			ProcessInitializeOnLoadMethodAttributes (41ms)
+			AfterProcessingInitializeOnLoad (5ms)
+			EditorAssembliesLoaded (0ms)
+		ExecutionOrderSort2 (0ms)
+		AwakeInstancesAfterBackupRestoration (6ms)
+Refreshing native plugins compatible for Editor in 0.42 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 0 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 3732 unused Assets / (0.9 MB). Loaded Objects now: 4263.
+Memory consumption went from 91.7 MB to 90.7 MB.
+Total: 6.489023 ms (FindLiveObjects: 0.464025 ms CreateObjectMapping: 0.204775 ms MarkObjects: 4.905860 ms  DeleteObjects: 0.906330 ms)
+
+Prepare: number of updated asset objects reloaded= 0
