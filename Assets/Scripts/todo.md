@@ -13,3 +13,5 @@ Slow walk on sand, fall into holes, avoid obstacles
 - Make the movement for the units NAVMESH
 
 - Tag ennemis et amis
+
+- Overlay set descriptions

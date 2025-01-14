@@ -81,6 +81,21 @@ public class ArenaGenerator : MonoBehaviour
         }
     }
 
+    void GenerateEnnemy()
+    {
+        // Load the prefab from the Resources folder
+        GameObject prefab = Resources.Load<GameObject>("Prefabs/Ennemy");
+        if (prefab != null)
+        {
+            // Instantiate the prefab at the specified position and rotation
+            GameObject instance = Instantiate(prefab, new Vector3(0, 0, 0), Quaternion.identity);
+        }
+        else
+        {
+            Debug.LogError("Prefab not found in Resources folder!");
+        }
+    }
+
     void GenerateArena(Arena arena)
     {
         if (arena == null)
@@ -119,6 +134,8 @@ public class ArenaGenerator : MonoBehaviour
                     if (type == 3)
                     {
                         tile.tag = "Hole"; // Assign the "Hole" tag
+                    } else {
+                        GenerateEnnemy();
                     }
                 }
                 else

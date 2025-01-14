@@ -14,38 +14,46 @@ public class GameManager : Manager<GameManager>
     public Action OnRoundEnd;
     public Action<a_Champion> OnUnitDied;
 
-    List<a_Champion> team1Entities = new List<a_Champion>();
-    List<a_Champion> team2Entities = new List<a_Champion>();
-
-    int unitsPerTeam = 6;
+    List<a_Champion> playerEntities = new List<a_Champion>();
+    List<a_Champion> ennemyEntities = new List<a_Champion>();
 
     public void OnEntityBought(ChampionsDatabaseSO.ChampionData championData)
     {
-        a_Champion newEntity = Instantiate(championData.prefab, team1Parent).GetComponent<a_Champion>();
+        a_Champion newEntity = entitiesDatabase.SpawnChampion(championData.entityStats.name, POSITION); //Instantiate(championData.prefab, team1Parent).GetComponent<a_Champion>();
         newEntity.gameObject.name = championData.entityStats.name;
-        team1Entities.Add(newEntity);
+        newEntity.gameObject.tag = "Player";
+        playerEntities.Add(newEntity);
 
-        // newEntity.Setup(Team.Team1, GridManager.Instance.GetFreeNode(Team.Team1));
+    }
+
+    // TODO : SET TAGS
+
+    public void OnEnnemySpawn(ChampionsDatabaseSO.ChampionData championData)
+    {
+        a_Champion newEntity = Instantiate(championData.prefab, team2Parent).GetComponent<a_Champion>();
+        newEntity.gameObject.name = championData.entityStats.name;
+        newEntity.gameObject.tag = "Ennemy";
+        ennemyEntities.Add(newEntity);
     }
 
     private void Start()
     {
-        Vector3 spawnPosition = new Vector3(15.6499996f, 0.140000105f, 12.7299995f);
+        Vector3 spawnPosition = new Vector3(0f, 0f, 13f);
         entitiesDatabase.SpawnChampion("Barbare", spawnPosition);
     }
 
     public List<a_Champion> GetEntitiesAgainst(Team against)
     {
         if (against == Team.Team1)
-            return team2Entities;
+            return ennemyEntities;
         else
-            return team1Entities;
+            return playerEntities;
     }
 
     public void UnitDead(a_Champion entity)
     {
-        team1Entities.Remove(entity);
-        team2Entities.Remove(entity);
+        playerEntities.Remove(entity);
+        ennemyEntities.Remove(entity);
 
         OnUnitDied?.Invoke(entity);
 

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 Unity Editor version:    6000.0.31f1 (a206c360e2a8)
 Branch:                  6000.0/staging
 Build type:              Release
@@ -972,3 +973,5 @@ Memory consumption went from 91.7 MB to 90.7 MB.
 Total: 6.489023 ms (FindLiveObjects: 0.464025 ms CreateObjectMapping: 0.204775 ms MarkObjects: 4.905860 ms  DeleteObjects: 0.906330 ms)
 
 Prepare: number of updated asset objects reloaded= 0
+=======
+>>>>>>> 715e0cacc1fce7b3ef5f940452f1392ed79c7ce5
