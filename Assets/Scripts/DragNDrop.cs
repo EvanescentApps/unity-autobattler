@@ -31,6 +31,7 @@ public class DragNDrop : MonoBehaviour
     {
         originalPosition = transform.position; // Store the original position
         targetRotation = transform.rotation; // Initialize target rotation
+        gameDirection = false;
 
         wasOutsidePlaygroundAtStart = IsOutsidePlayground(originalPosition);
     }
@@ -69,6 +70,8 @@ public class DragNDrop : MonoBehaviour
                     targetRotation = transform.rotation * Quaternion.Euler(0, 180, 0);
                     isRotating = true;
                     rotationTime = 0; // Reset the rotation time
+                } else {
+                    isRotating = false;
                 }
             }
         }
@@ -139,14 +142,11 @@ public class DragNDrop : MonoBehaviour
         return false;
     }
 
-    private void PurchaseChampion()
+    private void PurchaseChampionAndActivate()
     {
         Debug.Log("Purchase champion");
-    }
-
-    private void RespawnChampion()
-    {
-        Debug.Log("Champion respawned.");
+        gameObject.tag = "Player";
+        // TODO : CREATE CHAMPION AND ADD TO PLAYER ENTITIES
     }
 
     private void CheckDropZone() {
@@ -167,7 +167,7 @@ public class DragNDrop : MonoBehaviour
                         Destroy(gameObject);
                         objectDestroyed = true;
                     } else {
-                        PurchaseChampion();
+                        PurchaseChampionAndActivate();
                         // TODO: Know Which champion it is
                     }
                 }
@@ -204,7 +204,7 @@ public class DragNDrop : MonoBehaviour
 
     //             case "Respawn":
     //                 Debug.Log("Dropped on Respawn plane");
-    //                 RespawnChampion();
+    //                 ReSpawnChampionInStore();
     //                 break;
 
     //             default:

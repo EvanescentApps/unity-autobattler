@@ -84,11 +84,14 @@ public class ArenaGenerator : MonoBehaviour
     void GenerateEnnemy()
     {
         // Load the prefab from the Resources folder
-        GameObject prefab = Resources.Load<GameObject>("Prefabs/Ennemy");
+        GameObject prefab = Resources.Load<GameObject>("Prefabs/Barbarian");
         if (prefab != null)
         {
             // Instantiate the prefab at the specified position and rotation
-            GameObject instance = Instantiate(prefab, new Vector3(0, 0, 0), Quaternion.identity);
+            // GameObject instance = Instantiate(prefab, new Vector3(0, 0, 0), Quaternion.identity);
+            // instance.name = "Barbarian";
+            // TODO : instantiate the ennemy at the right position from the DB and set the right tag
+
         }
         else
         {

@@ -75,7 +75,7 @@ public class ChampionsDatabaseSO : ScriptableObject
     public List<ChampionData> allChampions = new List<ChampionData>();
 
     // Helper method to spawn a champion
-    public a_Champion SpawnChampion(string championName, Vector3 position)
+    public a_Champion SpawnChampionInStore(string championName, Vector3 position)
     {
         ChampionData data = allChampions.Find(c => c.entityStats.name == championName);
         if (data != null)
