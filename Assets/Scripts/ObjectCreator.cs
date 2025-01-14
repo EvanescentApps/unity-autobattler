@@ -7,6 +7,8 @@ public class ObjectCreator : MonoBehaviour
 
     void Start()
     {
+        Debug.Log("This script is attached to: " + gameObject.name);
+
         // Create a new GameObject
         GameObject newObject = new GameObject("NewObject");
 

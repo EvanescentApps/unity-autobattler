@@ -14,10 +14,10 @@
 
 ### Item
 - `Entity entity`
-- `List<ChampionAbility, float> upgrades`
+- `List<Attribute, float> upgrades`
 - `# runUpgrades`
 
-### Abstract ChampionAbility
+### Abstract Attribute
 - `# Upgrade (int)`
 
 ### Champion
@@ -28,7 +28,7 @@
 - `Mouvement mouvement`
 
 ### Mouvement
-- `ChampionAbility championAbility`
+- `Attribute Attribute`
 - `# Upgrade`
 - `float speed`
 - `List<float> speedMultipliers`
@@ -37,7 +37,7 @@
 - `# GetSpeedMultipliers`
 
 ### Attack
-- `ChampionAbility championAbility`
+- `Attribute Attribute`
 - `# Upgrade`
 - `float cooldown` (0.2s–1.5s)
 - `float distance`
@@ -46,7 +46,7 @@
 - `# SetDamage`
 
 ### Health
-- `ChampionAbility championAbility`
+- `Attribute Attribute`
 - `# Upgrade`
 - `float health`
 - `# TakeDamage`

@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Hole
   - Obstacle
+  - Sand
   layers:
   - Default
   - TransparentFX

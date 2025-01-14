@@ -60,16 +60,9 @@ public class ArenaGenerator : MonoBehaviour
             {
                 if (arena != null)
                 {
-                    Debug.Log($"Arena: {JsonUtility.ToJson(arena)}");
+                    // Debug.Log($"Arena: {JsonUtility.ToJson(arena)}");
                     int[][] layoutArray = arena.GetLayoutArray();
-                    if (layoutArray != null)
-                    {
-                        for (int y = 0; y < layoutArray.Length; y++)
-                        {
-                            Debug.Log($"Row {y}: {string.Join(",", layoutArray[y])}");
-                        }
-                    }
-                    else
+                    if (layoutArray == null)
                     {
                         Debug.LogError($"La disposition de l'arène '{arena.name}' est nulle.");
                     }

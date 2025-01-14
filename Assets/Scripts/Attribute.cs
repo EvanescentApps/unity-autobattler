@@ -1,5 +1,7 @@
 // Abstract class for Champion Abilities
-public abstract class ChampionAbility
+using UnityEngine;
+
+public abstract class Attribute : MonoBehaviour
 {
     public abstract void Upgrade(int level);
 }

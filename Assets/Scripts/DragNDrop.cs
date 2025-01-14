@@ -1,7 +1,12 @@
+using UnityEditor;
 using UnityEngine;
 
 public class DragNDrop : MonoBehaviour
 {
+    [SerializeField] private GameObject championDescription;
+
+    [SerializeField] private PlayerData playerManager;
+
     private Vector3 offset;
     private float yPosition; // Fixed Y position for the object
     private float zCoordinate; // Z coordinate for proper depth calculation
@@ -35,49 +40,14 @@ public class DragNDrop : MonoBehaviour
         // Handle mouse click
         if (Input.GetMouseButtonDown(0)) // Left mouse button
         {
-            Debug.Log("Object clicked.");
 
             if (isDragging)
             {
                 // Drop the object
                 isDragging = false;
-                Debug.Log("Dragging stopped.");
+                //championDescription.SetActive(false);
+                CheckDropZone();
 
-                // Check if the object is outside the playground
-                if (IsOutsidePlayground(transform.position))
-                {
-                    Debug.Log("Object dropped outside the playground bounds.");
-                    // Destroy the object
-                    Debug.Log("Destroying the current object.");
-                    Destroy(gameObject);
-                    objectDestroyed = true;
-                }
-                else
-                {
-                    Debug.Log("Object dropped inside the playground bounds.");
-
-                    
-                }
-                Debug.Log($"Current Position: {transform.position}");
-
-                if (IsOverHoleTile() || IsOverObstacleTile()){
-                    Debug.Log("Destroying the current object.");
-                    Destroy(gameObject);
-                    objectDestroyed = true;
-                }
-
-
-                // Check if the object started outside the playground
-                if (wasOutsidePlaygroundAtStart || objectDestroyed)
-                {
-                    ReinstanciateObject();
-                    objectDestroyed = false;
-                // else Object started inside the playground. No new object will be created.
-                }
-
-                // Update the flag to reflect the original position status
-                wasOutsidePlaygroundAtStart = IsOutsidePlayground(transform.position);
-                Debug.Log($"Updated 'wasOutsidePlaygroundAtStart, now it is': {wasOutsidePlaygroundAtStart}");
             } else {
                 // Raycast to check if the object is clicked
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -86,7 +56,7 @@ public class DragNDrop : MonoBehaviour
                 {
                     // Start dragging
                     isDragging = true;
-                    Debug.Log("Dragging started.");
+                    //championDescription.SetActive(true);
                     // Store the object's current Y position and increase it by 0.4
                     yPosition = transform.position.y + 0.4f;
 
@@ -169,10 +139,85 @@ public class DragNDrop : MonoBehaviour
         return false;
     }
 
-    private void HandleHoleTile()
+    private void PurchaseChampion()
     {
-        Debug.Log("Object dropped on a hole tile!");
-        // Add your custom behavior here
-        Destroy(gameObject);
+        Debug.Log("Purchase champion");
     }
+
+    private void RespawnChampion()
+    {
+        Debug.Log("Champion respawned.");
+    }
+
+    private void CheckDropZone() {
+
+                // Check if the object is outside the playground
+                if (IsOutsidePlayground(transform.position))
+                {
+                    // Destroy the object
+                    Debug.Log("dropped outside; destroying the current object.");
+                    Destroy(gameObject);
+                    objectDestroyed = true;
+                }
+                else
+                {
+
+                    if (IsOverHoleTile() || IsOverObstacleTile()){
+                        Debug.Log("Obstacle or Hole, Destroying the current object.");
+                        Destroy(gameObject);
+                        objectDestroyed = true;
+                    } else {
+                        PurchaseChampion();
+                        // TODO: Know Which champion it is
+                    }
+                }
+
+                var isObjectPlaced = wasOutsidePlaygroundAtStart;
+                // Check if the object started outside the playground
+                if (isObjectPlaced || objectDestroyed)
+                {
+                    ReinstanciateObject();
+                    objectDestroyed = false;
+                // else Object started inside the playground. No new object will be created.
+                }
+
+                // Update the flag to reflect the original position status
+                wasOutsidePlaygroundAtStart = IsOutsidePlayground(transform.position);
+    }
+
+    // private void CheckDropZoneAlternate()
+    // {
+    //     // Cast a ray downward from the object's position
+    //     Ray ray = new Ray(transform.position + Vector3.up, Vector3.down);
+    //     RaycastHit hit;
+
+    //     if (Physics.Raycast(ray, out hit, 10f))
+    //     {
+    //         string hitTag = hit.collider.tag;
+
+    //         switch (hitTag)
+    //         {
+    //             case "Playground":
+    //                 Debug.Log("Dropped on playground");
+    //                 PurchaseChampion();
+    //                 break;
+
+    //             case "Respawn":
+    //                 Debug.Log("Dropped on Respawn plane");
+    //                 RespawnChampion();
+    //                 break;
+
+    //             default:
+    //                 // If dropped on an untagged or differently tagged surface
+    //                 break;
+    //         }
+    //     }
+    //     else
+    //     {
+    //         // If the ray didn't hit anything, return to original position
+    //         Debug.Log("Dropped outside valid zone");
+    //         ReturnToOriginalPosition();
+    //     }
+    // }
+
 }

@@ -1,6 +1,6 @@
 
 // Abstract class for Attack
-public abstract class Attack
+public abstract class Attack : ChampionAbility
 {
     public ChampionAbility ChampionAbility { get; private set; }
     public float Cooldown { get; protected set; }
