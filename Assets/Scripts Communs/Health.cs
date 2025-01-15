@@ -1,18 +1,30 @@
 using UnityEngine;
 
 // Abstract class for Health
-public abstract class Health
+public abstract class Health : Attribute
 {
-    public ChampionAbility ChampionAbility { get; private set; }
-    public float CurrentHealth { get; private set; }
+    public float Armor { get; protected set; }
+    public float CurrentHealth { get; protected set; }
+    public float maxHealth { get; protected set; }
 
-    protected Health(ChampionAbility championAbility, float initialHealth)
+    protected Health(float initialHealth)
     {
-        ChampionAbility = championAbility;
+        maxHealth = initialHealth;
         CurrentHealth = initialHealth;
+        Armor = 0; 
+    }
+    protected Health(float initialHealth, int armor)
+    {
+        maxHealth = initialHealth;
+        CurrentHealth = initialHealth;
+        Armor = armor;
     }
 
-    public abstract void Upgrade();
+    public override void Upgrade(int upgrade)
+    {
+        maxHealth += upgrade;
+        CurrentHealth = maxHealth;
+    }
 
     public void TakeDamage(float amount)
     {

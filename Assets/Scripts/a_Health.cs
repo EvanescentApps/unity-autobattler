@@ -1,15 +1,10 @@
 using UnityEngine;
 
 // Abstract class for Health
-public class a_Health : Attribute
+public class a_Health : Health
 {
-    public float maxHealth;
-    public float CurrentHealth { get; private set; }
-    public float Armor { get; private set; }
-
-    public a_Health(float initialHealth)
+    public a_Health(float initialHealth) : base(initialHealth)
     {
-        CurrentHealth = initialHealth;
     }
 
     public void Initialize(float maxHp, float armor)
@@ -19,11 +14,7 @@ public class a_Health : Attribute
         CurrentHealth = maxHealth;
     }
 
-    public override void Upgrade(int upgrade)
-    {
-        maxHealth += upgrade;
-        CurrentHealth = maxHealth;
-    }
+
 
     public void TakeDamage(float amount)
     {

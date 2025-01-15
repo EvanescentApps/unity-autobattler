@@ -4,7 +4,7 @@ using System.Collections.Generic;
 public abstract class Item
 {
     public Entity Entity { get; private set; }
-    public Dictionary<ChampionAbility, float> Upgrades { get; private set; } = new();
+    public Dictionary<Attribute, float> Upgrades { get; private set; } = new();
 
     protected Item(Entity entity)
     {

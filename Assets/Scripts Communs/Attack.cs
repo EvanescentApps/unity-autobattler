@@ -1,6 +1,6 @@
 
 // Abstract class for Attack
-public abstract class Attack : ChampionAbility
+public abstract class Attack : Attribute
 {
     public float Cooldown { get; protected set; }
     public float Distance { get; protected set; }
@@ -13,7 +13,10 @@ public abstract class Attack : ChampionAbility
         Damage = damage;
     }
 
-    public abstract void Upgrade();
+    public override void Upgrade(int upgrade)
+    {
+        Damage += upgrade;
+    }
 
     public float GetDamage()
     {

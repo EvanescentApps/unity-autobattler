@@ -1,29 +1,14 @@
 
-public class a_Attack : Attribute
+public class a_Attack : Attack
 {
-    public float Cooldown { get; protected set; }
-    public float Distance { get; protected set; }
-    public float Damage { get; protected set; }
+    public a_Attack(float cooldown, float distance, float damage) : base(cooldown, distance, damage)
+    {
+    }
 
     public void Initialize(float cooldown, float range, float damage)
     {
         Cooldown = cooldown;
         Distance = range;
-        Damage = damage;
-    }
-
-    public override void Upgrade(int upgrade)
-    {
-        Damage += upgrade;
-    }
-
-    public float GetDamage()
-    {
-        return Damage;
-    }
-
-    public void SetDamage(float damage)
-    {
         Damage = damage;
     }
 }
