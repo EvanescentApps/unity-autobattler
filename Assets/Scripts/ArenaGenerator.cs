@@ -13,6 +13,8 @@ public class ArenaGenerator : MonoBehaviour
         public string name;
         public string layout;
 
+        public string enemyCoord;
+
         public int[][] GetLayoutArray()
         {
             string[] rows = layout.Split(',');
@@ -23,6 +25,36 @@ public class ArenaGenerator : MonoBehaviour
             }
             return layoutArray;
         }
+
+        public Vector2Int[] GetEnemyCoordinates()
+        {
+            if (string.IsNullOrEmpty(enemyCoord))
+            {
+                Debug.LogError("Enemy coordinates string is null or empty.");
+                return null;
+            }
+            string[] pairs = enemyCoord.Split(';');
+            Vector2Int[] coordinates = new Vector2Int[pairs.Length];
+            for (int i = 0; i < pairs.Length; i++)
+            {
+                string[] values = pairs[i].Split(',');
+                if (values.Length != 2)
+                {
+                    Debug.LogError("Invalid enemy coordinate format: " + pairs[i]);
+                    continue;
+                }
+
+                if (int.TryParse(values[0], out int x) && int.TryParse(values[1], out int y))
+                {
+                    coordinates[i] = new Vector2Int(x, y);
+                }
+                else
+                {
+                    Debug.LogError("Invalid enemy coordinate values: " + pairs[i]);
+                }
+            }
+            return coordinates;
+        }
     }
 
     [Serializable]
@@ -31,6 +63,8 @@ public class ArenaGenerator : MonoBehaviour
         public Arena[] arenas;
     }
 
+
+    public GameObject playground;
     public GameObject obstacleTilePrefab;
     public GameObject holeTilePrefab;
     public GameObject sandTilePrefab;
@@ -50,6 +84,8 @@ public class ArenaGenerator : MonoBehaviour
             { 3, holeTilePrefab }
         };
 
+        
+
         string filePath = Path.Combine(Application.streamingAssetsPath, jsonFileName);
         string json = File.ReadAllText(filePath);
         ArenaData arenaData = JsonUtility.FromJson<ArenaData>(json);
@@ -66,6 +102,11 @@ public class ArenaGenerator : MonoBehaviour
                     {
                         Debug.LogError($"La disposition de l'arène '{arena.name}' est nulle.");
                     }
+                    Vector2Int[] enemyCoordinates = arena.GetEnemyCoordinates();
+                    if (enemyCoordinates == null)
+                    {
+                        Debug.LogError($"Les coordonnées des ennemis de l'arène '{arena.name}' sont nulles.");
+                    }
                 }
                 else
                 {
@@ -74,6 +115,7 @@ public class ArenaGenerator : MonoBehaviour
             }
 
             GenerateArena(arenaData.arenas[0]); // Génère la première arène par défaut
+            
         }
         else
         {
@@ -81,17 +123,69 @@ public class ArenaGenerator : MonoBehaviour
         }
     }
 
-    void GenerateEnnemy()
+    void GenerateEnnemy(int enemyType, Vector3 position)
     {
         // Load the prefab from the Resources folder
-        GameObject prefab = Resources.Load<GameObject>("Prefabs/Barbarian");
+        string prefabPath = string.Empty;
+        string enemyName = string.Empty;
+        switch (enemyType)
+        {
+            case 5:
+                prefabPath = "Prefabs/Barbarian";
+                enemyName = "BarbarianEnemy";
+                break;
+            case 6:
+                prefabPath = "Prefabs/Knight";
+                enemyName = "KnightEnemy";
+                break;
+            case 7:
+                prefabPath = "Prefabs/Mage";
+                enemyName = "MageEnemy";
+                break;
+            case 8:
+                prefabPath = "Prefabs/EnemyType8";
+                break;
+            case 9:
+                prefabPath = "Prefabs/EnemyType9";
+                break;
+            default:
+                Debug.LogError("Invalid enemy type: " + enemyType);
+                return;
+        }
+
+        GameObject prefab = Resources.Load<GameObject>(prefabPath);
         if (prefab != null)
         {
             // Instantiate the prefab at the specified position and rotation
-            // GameObject instance = Instantiate(prefab, new Vector3(0, 0, 0), Quaternion.identity);
-            // instance.name = "Barbarian";
-            // TODO : instantiate the ennemy at the right position from the DB and set the right tag
+            GameObject instance = Instantiate(prefab, position, Quaternion.identity);
+            instance.name = enemyName;
 
+            // Apply a red tint to all renderers in the instantiated enemy
+            Renderer[] renderers = instance.GetComponentsInChildren<Renderer>();
+            if (renderers.Length > 0)
+            {
+                foreach (Renderer renderer in renderers)
+                {
+                    renderer.material.color = Color.red;
+                }
+            }
+            else
+            {
+                Debug.LogError("Renderer component not found on the instantiated enemy: " + enemyName);
+            }
+        }
+        else
+        {
+            Debug.LogError("Prefab not found in Resources folder! "+ prefabPath);
+        }
+    }
+
+    void AnimateDeath(Vector3 deathPosition) {
+         GameObject desintegrateParticlePrefab = Resources.Load<GameObject>("Prefabs/CubeDesintegrate");
+        if (desintegrateParticlePrefab != null)
+        {
+            GameObject instance = Instantiate(desintegrateParticlePrefab, deathPosition, Quaternion.identity);
+            instance.name = "DesintegrationParticle";
         }
         else
         {
@@ -113,6 +207,17 @@ public class ArenaGenerator : MonoBehaviour
             return;
         }
 
+        GenerateEnnemy(5, new Vector3(0, 0, 0));
+
+        Vector2Int[] enemyCoordinates = arena.GetEnemyCoordinates();
+        if (enemyCoordinates != null)
+        {
+            foreach (var coord in enemyCoordinates)
+            {
+                GenerateEnnemy(5, new Vector3(coord.x * 2 - 9f, 0, coord.y * 2 - 9f));
+            }
+        }
+
         int[][] layoutArray = arena.GetLayoutArray();
         int height = layoutArray.Length;
 
@@ -132,13 +237,14 @@ public class ArenaGenerator : MonoBehaviour
                     // Adjust the y-coordinate to revert symmetrically vertically
                     GameObject tile = Instantiate(prefabMapping[type], new Vector3((height - 1 - x)  * 2 - 9f, 0, y* 2 - 9f), Quaternion.identity);
                     tile.transform.localScale = new Vector3(0.2f, 1, 0.2f); // Adjust the scale as needed
+                    tile.transform.SetParent(playground.transform);
+
+
 
                     // Check if the type is 3 and assign the "Hole" tag
                     if (type == 3)
                     {
                         tile.tag = "Hole"; // Assign the "Hole" tag
-                    } else {
-                        GenerateEnnemy();
                     }
                 }
                 else

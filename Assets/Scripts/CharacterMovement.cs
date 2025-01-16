@@ -19,7 +19,6 @@ public class CharacterMovement : MonoBehaviour
     {
         HandleMovement();
         HandleJump();
-        HandleAttacks();
     }
 
     private void HandleMovement()
@@ -67,21 +66,19 @@ public class CharacterMovement : MonoBehaviour
         }
     }
 
-    private void HandleAttacks()
+    private void Attack1()
     {
-        // Example: Basic attacks using keys
-        if (Input.GetKeyDown(KeyCode.Mouse0)) // Left-click for basic attack
-        {
-            animator.SetTrigger("Attack1");
-        }
-        else if (Input.GetKeyDown(KeyCode.Mouse1)) // Right-click for another attack
-        {
-            animator.SetTrigger("Attack2");
-        }
-        else if (Input.GetKeyDown(KeyCode.E)) // "E" for a special attack
-        {
-            animator.SetTrigger("SpecialAttack");
-        }
+        animator.SetTrigger("Attack1");
+    }
+
+    private void Attack2()
+    {
+        animator.SetTrigger("Attack2");
+    }
+
+    private void SpecialAttack()
+    {
+        animator.SetTrigger("SpecialAttack");
     }
 
     // private void OnCollisionEnter(Collision collision)
