@@ -5,6 +5,7 @@
 [Bb]uilds/
 Assets/AssetStoreTools*
 
+<<<<<<< Updated upstream
 # Logs
 Logs/
 
@@ -14,6 +15,12 @@ UserSettings/
 # Logs
 *.logs
 *.log
+=======
+# Unity log files
+Logs/AssetImportWorker0.log
+Logs/AssetImportWorker1.log
+Logs/shadercompiler-UnityShaderCompiler-0.log
+>>>>>>> Stashed changes
 
 # Visual Studio cache directory
 .vs/
