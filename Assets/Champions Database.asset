@@ -28,3 +28,33 @@ MonoBehaviour:
       damage: 6
     movementStats:
       speed: 7
+  - prefab: {fileID: 3420791297075609745, guid: 4f40cdd9a6a19fa569b277089a6741be, type: 3}
+    description: Barbare
+    icon: {fileID: 21300000, guid: 6c9dc5d3b7e63774ea7da6e0f0601181, type: 3}
+    entityStats:
+      name: Barbare
+      price: 26
+    healthStats:
+      maxHealth: 40
+      armor: 2
+    attackStats:
+      cooldown: 3
+      range: 3
+      damage: 6
+    movementStats:
+      speed: 7
+  - prefab: {fileID: 3420791297075609745, guid: 4f40cdd9a6a19fa569b277089a6741be, type: 3}
+    description: Barbare
+    icon: {fileID: 21300000, guid: 6c9dc5d3b7e63774ea7da6e0f0601181, type: 3}
+    entityStats:
+      name: Barbare
+      price: 26
+    healthStats:
+      maxHealth: 40
+      armor: 2
+    attackStats:
+      cooldown: 3
+      range: 3
+      damage: 6
+    movementStats:
+      speed: 7

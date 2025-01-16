@@ -3,11 +3,11 @@ using System.Collections.Generic;
 // Abstract class for Movement
 public abstract class Movement
 {
-    public ChampionAbility ChampionAbility { get; private set; }
+    public Attribute ChampionAbility { get; private set; }
     public float Speed { get; private set; }
     public List<float> SpeedMultipliers { get; private set; } = new();
 
-    protected Movement(ChampionAbility championAbility, float speed)
+    protected Movement(Attribute championAbility, float speed)
     {
         ChampionAbility = championAbility;
         Speed = speed;
