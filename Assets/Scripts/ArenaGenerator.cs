@@ -26,27 +26,28 @@ public class ArenaGenerator : MonoBehaviour
             return layoutArray;
         }
 
-        public Vector2Int[] GetEnemyCoordinates()
+        public (int enemyType, Vector2Int position)[] GetEnemyCoordinates()
         {
             if (string.IsNullOrEmpty(enemyCoord))
             {
                 Debug.LogError("Enemy coordinates string is null or empty.");
                 return null;
             }
+
             string[] pairs = enemyCoord.Split(';');
-            Vector2Int[] coordinates = new Vector2Int[pairs.Length];
+            var coordinates = new (int enemyType, Vector2Int position)[pairs.Length];
             for (int i = 0; i < pairs.Length; i++)
             {
                 string[] values = pairs[i].Split(',');
-                if (values.Length != 2)
+                if (values.Length != 3)
                 {
                     Debug.LogError("Invalid enemy coordinate format: " + pairs[i]);
                     continue;
                 }
 
-                if (int.TryParse(values[0], out int x) && int.TryParse(values[1], out int y))
+                if (int.TryParse(values[0], out int enemyType) && int.TryParse(values[1], out int x) && int.TryParse(values[2], out int y))
                 {
-                    coordinates[i] = new Vector2Int(x, y);
+                    coordinates[i] = (enemyType, new Vector2Int(x, y));
                 }
                 else
                 {
@@ -102,7 +103,7 @@ public class ArenaGenerator : MonoBehaviour
                     {
                         Debug.LogError($"La disposition de l'arène '{arena.name}' est nulle.");
                     }
-                    Vector2Int[] enemyCoordinates = arena.GetEnemyCoordinates();
+                    var enemyCoordinates = arena.GetEnemyCoordinates();
                     if (enemyCoordinates == null)
                     {
                         Debug.LogError($"Les coordonnées des ennemis de l'arène '{arena.name}' sont nulles.");
@@ -207,14 +208,13 @@ public class ArenaGenerator : MonoBehaviour
             return;
         }
 
-        GenerateEnnemy(5, new Vector3(0, 0, 0));
 
-        Vector2Int[] enemyCoordinates = arena.GetEnemyCoordinates();
+        var enemyCoordinates = arena.GetEnemyCoordinates();
         if (enemyCoordinates != null)
         {
-            foreach (var coord in enemyCoordinates)
+            foreach (var (enemyType, position) in enemyCoordinates)
             {
-                GenerateEnnemy(5, new Vector3(coord.x * 2 - 9f, 0, coord.y * 2 - 9f));
+                GenerateEnnemy(enemyType, new Vector3(position.x * 2 - 9f, 0, position.y * 2 - 9f));
             }
         }
 
