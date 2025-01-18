@@ -28,11 +28,11 @@ MonoBehaviour:
       damage: 6
     movementStats:
       speed: 7
-  - prefab: {fileID: 3420791297075609745, guid: 4f40cdd9a6a19fa569b277089a6741be, type: 3}
-    description: Barbare
-    icon: {fileID: 21300000, guid: 6c9dc5d3b7e63774ea7da6e0f0601181, type: 3}
+  - prefab: {fileID: 1157070250715219969, guid: e121c9091f9cd27e781f9968597a4968, type: 3}
+    description: Magicien
+    icon: {fileID: 21300000, guid: d422fd618cf701e4a9279f52ded52760, type: 3}
     entityStats:
-      name: Barbare
+      name: Magicien
       price: 26
     healthStats:
       maxHealth: 40
@@ -43,11 +43,11 @@ MonoBehaviour:
       damage: 6
     movementStats:
       speed: 7
-  - prefab: {fileID: 3420791297075609745, guid: 4f40cdd9a6a19fa569b277089a6741be, type: 3}
-    description: Barbare
-    icon: {fileID: 21300000, guid: 6c9dc5d3b7e63774ea7da6e0f0601181, type: 3}
+  - prefab: {fileID: 7102642089089872413, guid: 51a89bec51e394289876cc2d7bf20cdc, type: 3}
+    description: Chevalier
+    icon: {fileID: 21300000, guid: 78696ebd9a6b6834b992c8628406a544, type: 3}
     entityStats:
-      name: Barbare
+      name: Chevalier
       price: 26
     healthStats:
       maxHealth: 40

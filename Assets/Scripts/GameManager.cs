@@ -41,12 +41,12 @@ public class GameManager : Manager<GameManager>
 
         // DISPLAY ALL THE UNITS
         
-        List<string> champions = new List<string> { "Barbare", "Magicien", "Archer" }; // Example list of champions
-        float x = 0f;
+        List<string> champions = new List<string> { "Barbare", "Magicien", "Chevalier" }; 
+        float x = 7.5f;
 
         foreach (string champion in champions)
         {
-            Vector3 spawnPosition = new Vector3(7.5f, 0f, 13f);
+            Vector3 spawnPosition = new Vector3(x, 0f, 13f);
             entitiesDatabase.SpawnChampionInStore(champion, spawnPosition);
             x -= 2.5f;
         }

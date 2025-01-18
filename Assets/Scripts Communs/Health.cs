@@ -28,7 +28,16 @@ public abstract class Health : Attribute
 
     public void TakeDamage(float amount)
     {
-        CurrentHealth = Mathf.Max(0, CurrentHealth - amount);
+        float reducedDamage = amount;
+
+        // Check if Armor is set and calculate reduced damage
+        if (Armor > 0)
+        {
+            reducedDamage = amount * (1f - Armor / 100f);
+            reducedDamage = Mathf.Clamp(reducedDamage, 0f, amount);
+        }
+
+        CurrentHealth = Mathf.Max(0, CurrentHealth - reducedDamage);
     }
 
     public float GetHealth()
