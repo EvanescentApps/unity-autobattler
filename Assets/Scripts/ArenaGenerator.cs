@@ -245,6 +245,18 @@ public class ArenaGenerator : MonoBehaviour
                     {
                         tile.tag = "Hole"; // Assign the "Hole" tag
                     }
+                    if (type == 2)
+                    {
+                        tile.tag = "Obstacle"; // Assign the "Obstacle" tag
+                    }
+                    if(type == 1)
+                    {
+                        tile.tag = "Sand"; // Assign the "Sand" tag
+                    }
+                    if (type == 0)
+                    {
+                        tile.tag = "ClassicTile"; // Assign the "Classic" tag
+                    }
                 }
                 else
                 {

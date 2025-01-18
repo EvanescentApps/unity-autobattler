@@ -36,21 +36,36 @@ public class GameManager : Manager<GameManager>
         ennemyEntities.Add(newEntity);
     }
 
+    Dictionary<string, float> championPositions = new Dictionary<string, float>
+        {
+            { "Barbare", 7.5f },
+            { "Magicien", 5.0f },
+            { "Chevalier", 2.5f }
+        };
+
     private void Start()
     {
-
         // DISPLAY ALL THE UNITS
-        
-        List<string> champions = new List<string> { "Barbare", "Magicien", "Chevalier" }; 
-        float x = 7.5f;
-
-        foreach (string champion in champions)
+    
+        foreach (var champion in championPositions)
         {
-            Vector3 spawnPosition = new Vector3(x, 0f, 13f);
-            entitiesDatabase.SpawnChampionInStore(champion, spawnPosition);
-            x -= 2.5f;
+            Vector3 spawnPosition = new Vector3(champion.Value, 0f, 13f);
+            entitiesDatabase.SpawnChampionInStore(champion.Key, spawnPosition);
         }
     }
+
+    public void RespawnEntityInStore(string entityName)
+{
+    if (championPositions.TryGetValue(entityName, out float x))
+    {
+        Vector3 spawnPosition = new Vector3(x, 0f, 13f);
+        entitiesDatabase.SpawnChampionInStore(entityName, spawnPosition);
+    }
+    else
+    {
+        Debug.LogError("Entity name not found in champion positions dictionary: " + entityName);
+    }
+}
 
     public List<a_Champion> GetEntitiesAgainst(Team against)
     {

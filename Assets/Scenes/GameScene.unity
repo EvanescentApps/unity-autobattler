@@ -283,7 +283,7 @@ GameObject:
   - component: {fileID: 639205310}
   m_Layer: 0
   m_Name: UnitsStore
-  m_TagString: Untagged
+  m_TagString: Store
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -941,7 +941,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7102642089089872413, guid: 51a89bec51e394289876cc2d7bf20cdc, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7627540815811766439, guid: 51a89bec51e394289876cc2d7bf20cdc, type: 3}
       propertyPath: m_LocalScale.x

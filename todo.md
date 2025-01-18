@@ -15,3 +15,5 @@ Slow walk on sand, fall into holes, avoid obstacles
 - Tag ennemis et amis
 
 - Overlay set descriptions
+
+- Be able to put the ennemy only in the lower half of the playground
