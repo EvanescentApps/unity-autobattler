@@ -30,7 +30,6 @@ public class ArenaGenerator : MonoBehaviour
         {
             if (string.IsNullOrEmpty(enemyCoord))
             {
-                Debug.LogError("Enemy coordinates string is null or empty.");
                 return null;
             }
 
