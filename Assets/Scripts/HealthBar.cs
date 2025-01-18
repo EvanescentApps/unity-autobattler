@@ -18,7 +18,7 @@ public class HealthBar : MonoBehaviour
 
     public void UpdateBar(float newValue)
     {
-        float newScale = newValue / maxHealth;
+        float newScale = newValue / 100;
         Vector3 scale = bar.transform.localScale;
         scale.x = newScale;
         bar.transform.localScale = scale;

@@ -76,7 +76,7 @@ PrefabInstance:
       addedObject: {fileID: 1362254016098124497}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a9cb56c2b382e342c8eea63fd8b88793, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 5229040835358897660}
+      addedObject: {fileID: 8161622630054246902}
   m_SourcePrefab: {fileID: 100100000, guid: a9cb56c2b382e342c8eea63fd8b88793, type: 3}
 --- !u!1 &7102642089089872413 stripped
 GameObject:
@@ -133,7 +133,7 @@ CapsuleCollider:
   m_Height: 2.4617946
   m_Direction: 1
   m_Center: {x: 0, y: 1.2093517, z: 0}
---- !u!114 &5229040835358897660
+--- !u!114 &8161622630054246902
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -142,11 +142,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7102642089089872413}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 411828f4e6c0045ff907dba4bd9de151, type: 3}
+  m_Script: {fileID: 11500000, guid: d7fd710c119931ab9bccfcf34399e37d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playgroundMin: {x: -10, y: 0, z: -10}
-  playgroundMax: {x: 10, y: 0, z: 10}
-  objectPrefab: {fileID: 7102642089089872413}
-  rotationSpeed: 50
-  gameDirection: 0
+  barPrefab: {fileID: 706086590420014964, guid: fc0f97afc589109478374a31692e9eef, type: 3}

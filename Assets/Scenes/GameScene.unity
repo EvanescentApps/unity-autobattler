@@ -1014,7 +1014,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1157070250715219969, guid: e121c9091f9cd27e781f9968597a4968, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1965097688378495675, guid: e121c9091f9cd27e781f9968597a4968, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1128,26 +1128,6 @@ PrefabInstance:
     - target: {fileID: 3420791297075609745, guid: 4f40cdd9a6a19fa569b277089a6741be, type: 3}
       propertyPath: m_IsActive
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4756353130550849753, guid: 4f40cdd9a6a19fa569b277089a6741be, type: 3}
-      propertyPath: objectPrefab
-      value: 
-      objectReference: {fileID: 3420791297075609745, guid: 4f40cdd9a6a19fa569b277089a6741be, type: 3}
-    - target: {fileID: 4756353130550849753, guid: 4f40cdd9a6a19fa569b277089a6741be, type: 3}
-      propertyPath: playgroundMax.x
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 4756353130550849753, guid: 4f40cdd9a6a19fa569b277089a6741be, type: 3}
-      propertyPath: playgroundMax.z
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 4756353130550849753, guid: 4f40cdd9a6a19fa569b277089a6741be, type: 3}
-      propertyPath: playgroundMin.x
-      value: -10
-      objectReference: {fileID: 0}
-    - target: {fileID: 4756353130550849753, guid: 4f40cdd9a6a19fa569b277089a6741be, type: 3}
-      propertyPath: playgroundMin.z
-      value: -10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
