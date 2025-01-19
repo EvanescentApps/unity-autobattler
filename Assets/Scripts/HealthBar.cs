@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class HealthBar : MonoBehaviour
 {
-    public Transform bar;
-    public Vector3 offset;
+    [SerializeField] public Transform bar;
+    public Vector3 offset; // Offset to position the health bar above the champion
 
     private float maxHealth;
-    Transform target;
+    public Transform target;
 
     public void Setup(Transform target, float maxHealth)
     {
@@ -26,13 +26,22 @@ public class HealthBar : MonoBehaviour
 
     private void Start()
     {
-        maxHealth = gameObject.GetComponent<Champion>().Health.GetHealth();
-        Debug.Log($"max helath is {maxHealth}");
+        a_Champion champion = GetComponentInParent<a_Champion>();
+        if (champion != null)
+        {
+            maxHealth = champion.Health.GetHealth();
+            Debug.Log($"max health is {maxHealth}");
+        }
+        else
+        {
+            Debug.LogError("Champion component not found in parent objects.");
+        }
     }
 
     private void Update()
     {
-        if(target != null)
-            this.transform.position = target.position + offset;
+        if(target != null){
+            transform.position = target.position + offset;
+        }
     }
 }

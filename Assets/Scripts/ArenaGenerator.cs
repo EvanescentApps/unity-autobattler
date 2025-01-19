@@ -173,23 +173,17 @@ public class ArenaGenerator : MonoBehaviour
             {
                 Debug.LogError("Renderer component not found on the instantiated enemy: " + enemyName);
             }
+
+            // Disable DragNDrop script if it exists
+            DragNDrop dragNDrop = instance.GetComponent<DragNDrop>();
+            if (dragNDrop != null)
+            {
+                dragNDrop.enabled = false;
+            }
         }
         else
         {
             Debug.LogError("Prefab not found in Resources folder! "+ prefabPath);
-        }
-    }
-
-    void AnimateDeath(Vector3 deathPosition) {
-         GameObject desintegrateParticlePrefab = Resources.Load<GameObject>("Prefabs/CubeDesintegrate");
-        if (desintegrateParticlePrefab != null)
-        {
-            GameObject instance = Instantiate(desintegrateParticlePrefab, deathPosition, Quaternion.identity);
-            instance.name = "DesintegrationParticle";
-        }
-        else
-        {
-            Debug.LogError("Prefab not found in Resources folder!");
         }
     }
 

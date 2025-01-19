@@ -28,6 +28,13 @@ public class GameManager : Manager<GameManager>
 
     // TODO : SET TAGS
 
+    // Method to add entity to player entities
+    public void AddEntityToPlayerEntities(a_Champion newEntity)
+    {
+        playerEntities.Add(newEntity);
+        Debug.Log("Player entities count: " + playerEntities.Count);
+    }
+
     public void OnEnnemySpawn(ChampionsDatabaseSO.ChampionData championData)
     {
         a_Champion newEntity = Instantiate(championData.prefab, team2Parent).GetComponent<a_Champion>();
@@ -45,12 +52,23 @@ public class GameManager : Manager<GameManager>
 
     private void Start()
     {
-        // DISPLAY ALL THE UNITS
-    
         foreach (var champion in championPositions)
         {
             Vector3 spawnPosition = new Vector3(champion.Value, 0f, 13f);
             entitiesDatabase.SpawnChampionInStore(champion.Key, spawnPosition);
+        }
+    }
+
+    public void AnimateDeath(Vector3 deathPosition) {
+        GameObject desintegrateParticlePrefab = Resources.Load<GameObject>("Prefabs/CubeDesintegrate");
+        if (desintegrateParticlePrefab != null)
+        {
+            GameObject instance = Instantiate(desintegrateParticlePrefab, deathPosition, Quaternion.identity);
+            instance.name = "DesintegrationParticle";
+        }
+        else
+        {
+            Debug.LogError("Prefab not found in Resources folder!");
         }
     }
 
@@ -83,6 +101,8 @@ public class GameManager : Manager<GameManager>
         OnUnitDied?.Invoke(entity);
 
         Destroy(entity.gameObject);
+        AnimateDeath(entity.transform.position);
+
     }
 }
 
