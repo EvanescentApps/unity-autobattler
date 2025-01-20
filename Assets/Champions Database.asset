@@ -58,3 +58,33 @@ MonoBehaviour:
       damage: 6
     movementStats:
       speed: 7
+  - prefab: {fileID: 5787547420258175469, guid: 2a8b7759cc61f8b4dbad5b8a15d7b6c4, type: 3}
+    description: Archer
+    icon: {fileID: 21300000, guid: 42d59393ed5896d4da07d7955656c201, type: 3}
+    entityStats:
+      name: Archer
+      price: 26
+    healthStats:
+      maxHealth: 40
+      armor: 2
+    attackStats:
+      cooldown: 3
+      range: 3
+      damage: 6
+    movementStats:
+      speed: 7
+  - prefab: {fileID: 2748188118753009098, guid: 3a6ecd85e50997a4c90fcf645208e77f, type: 3}
+    description: Robinhood
+    icon: {fileID: 21300000, guid: 3c2a60165b4fb1e4f8fc39c4fe5568f2, type: 3}
+    entityStats:
+      name: Robinhood
+      price: 26
+    healthStats:
+      maxHealth: 40
+      armor: 2
+    attackStats:
+      cooldown: 3
+      range: 3
+      damage: 6
+    movementStats:
+      speed: 7

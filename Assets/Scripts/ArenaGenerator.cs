@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using System;
-
+using Unity.AI.Navigation;
 
 public class ArenaGenerator : MonoBehaviour
-{
+{    
     [Serializable]
     public class Arena
     {
@@ -65,6 +65,7 @@ public class ArenaGenerator : MonoBehaviour
     }
 
 
+    public NavMeshSurface navMesh;
     public GameObject playground;
     public GameObject obstacleTilePrefab;
     public GameObject holeTilePrefab;
@@ -84,8 +85,6 @@ public class ArenaGenerator : MonoBehaviour
             { 2, obstacleTilePrefab },
             { 3, holeTilePrefab }
         };
-
-        
 
         string filePath = Path.Combine(Application.streamingAssetsPath, jsonFileName);
         string json = File.ReadAllText(filePath);
@@ -245,6 +244,11 @@ public class ArenaGenerator : MonoBehaviour
                     if (type == 3)
                     {
                         tile.tag = "Hole"; // Assign the "Hole" tag
+                        navMesh.BuildNavMesh();
+                    }
+                    else if (type == 4)
+                    {
+                        navMesh.BuildNavMesh();
                     }
                 }
                 else
