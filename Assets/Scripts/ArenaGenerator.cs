@@ -30,7 +30,6 @@ public class ArenaGenerator : MonoBehaviour
         {
             if (string.IsNullOrEmpty(enemyCoord))
             {
-                Debug.LogError("Enemy coordinates string is null or empty.");
                 return null;
             }
 
@@ -173,23 +172,17 @@ public class ArenaGenerator : MonoBehaviour
             {
                 Debug.LogError("Renderer component not found on the instantiated enemy: " + enemyName);
             }
+
+            // Disable DragNDrop script if it exists
+            DragNDrop dragNDrop = instance.GetComponent<DragNDrop>();
+            if (dragNDrop != null)
+            {
+                dragNDrop.enabled = false;
+            }
         }
         else
         {
             Debug.LogError("Prefab not found in Resources folder! "+ prefabPath);
-        }
-    }
-
-    void AnimateDeath(Vector3 deathPosition) {
-         GameObject desintegrateParticlePrefab = Resources.Load<GameObject>("Prefabs/CubeDesintegrate");
-        if (desintegrateParticlePrefab != null)
-        {
-            GameObject instance = Instantiate(desintegrateParticlePrefab, deathPosition, Quaternion.identity);
-            instance.name = "DesintegrationParticle";
-        }
-        else
-        {
-            Debug.LogError("Prefab not found in Resources folder!");
         }
     }
 
@@ -249,6 +242,18 @@ public class ArenaGenerator : MonoBehaviour
                     else if (type == 4)
                     {
                         navMesh.BuildNavMesh();
+                    }
+                    if (type == 2)
+                    {
+                        tile.tag = "Obstacle"; // Assign the "Obstacle" tag
+                    }
+                    if(type == 1)
+                    {
+                        tile.tag = "Sand"; // Assign the "Sand" tag
+                    }
+                    if (type == 0)
+                    {
+                        tile.tag = "ClassicTile"; // Assign the "Classic" tag
                     }
                 }
                 else

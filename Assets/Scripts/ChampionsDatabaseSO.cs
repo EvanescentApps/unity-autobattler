@@ -83,6 +83,7 @@ public class ChampionsDatabaseSO : ScriptableObject
             GameObject instance = Instantiate(data.prefab, position, Quaternion.identity);
             a_Champion champion = instance.GetComponent<a_Champion>();
             data.InitializeChampion(champion);
+            Debug.Log($"Champion {championName} spawned in store!");
             return champion;
         }
         Debug.LogError($"Champion {championName} not found in database!");

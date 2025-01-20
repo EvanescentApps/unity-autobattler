@@ -28,6 +28,13 @@ public class GameManager : Manager<GameManager>
 
     // TODO : SET TAGS
 
+    // Method to add entity to player entities
+    public void AddEntityToPlayerEntities(a_Champion newEntity)
+    {
+        playerEntities.Add(newEntity);
+        Debug.Log("Player entities count: " + playerEntities.Count);
+    }
+
     public void OnEnnemySpawn(ChampionsDatabaseSO.ChampionData championData)
     {
         a_Champion newEntity = Instantiate(championData.prefab, team2Parent).GetComponent<a_Champion>();
@@ -36,21 +43,47 @@ public class GameManager : Manager<GameManager>
         ennemyEntities.Add(newEntity);
     }
 
+    Dictionary<string, float> championPositions = new Dictionary<string, float>
+        {
+            { "Barbare", 7.5f },
+            { "Magicien", 5.0f },
+            { "Chevalier", 2.5f }
+        };
+
     private void Start()
     {
-
-        // DISPLAY ALL THE UNITS
-        
-        List<string> champions = new List<string> { "Barbare", "Magicien", "Chevalier" }; 
-        float x = 7.5f;
-
-        foreach (string champion in champions)
+        foreach (var champion in championPositions)
         {
-            Vector3 spawnPosition = new Vector3(x, 0f, 13f);
-            entitiesDatabase.SpawnChampionInStore(champion, spawnPosition);
-            x -= 2.5f;
+            Vector3 spawnPosition = new Vector3(champion.Value, 0f, 13f);
+            entitiesDatabase.SpawnChampionInStore(champion.Key, spawnPosition);
         }
     }
+
+    public void AnimateDeath(Vector3 deathPosition) {
+        GameObject desintegrateParticlePrefab = Resources.Load<GameObject>("Prefabs/CubeDesintegrate");
+        if (desintegrateParticlePrefab != null)
+        {
+            GameObject instance = Instantiate(desintegrateParticlePrefab, deathPosition, Quaternion.identity);
+            instance.name = "DesintegrationParticle";
+        }
+        else
+        {
+            Debug.LogError("Prefab not found in Resources folder!");
+        }
+    }
+
+    public void RespawnEntityInStore(string entityName)
+{
+    if (championPositions.TryGetValue(entityName, out float x))
+    {
+        Vector3 spawnPosition = new Vector3(x, 0f, 13f);
+        entitiesDatabase.SpawnChampionInStore(entityName, spawnPosition);
+    }
+    else
+    {
+        Debug.LogError("Entity name not found in champion positions dictionary: " + entityName);
+    }
+}
 
     public List<a_Champion> GetEntitiesAgainst(Team against)
     {
@@ -68,6 +101,8 @@ public class GameManager : Manager<GameManager>
         OnUnitDied?.Invoke(entity);
 
         Destroy(entity.gameObject);
+        AnimateDeath(entity.transform.position);
+
     }
 }
 
