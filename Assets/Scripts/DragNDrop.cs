@@ -305,6 +305,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class DragNDrop : MonoBehaviour
 {
@@ -350,6 +351,7 @@ public class DragNDrop : MonoBehaviour
         HandleMouseInput();
         if (isDragging)
         {
+            gameObject.GetComponent<NavMeshAgent>().enabled = false;
             DragObject();
             CheckHoverZone();
         }
@@ -365,6 +367,8 @@ public class DragNDrop : MonoBehaviour
             if (isDragging)
             {
                 isDragging = false;
+                gameObject.GetComponent<NavMeshAgent>().enabled = true;
+                Debug.Log("I have a navMesh Agent");
                 CheckDropZoneAlternate();
             }
             else
@@ -468,6 +472,7 @@ public class DragNDrop : MonoBehaviour
     private void PurchaseChampionAndActivate(string championType)
     {
         gameObject.tag = "Player";
+        gameObject.AddComponent<AITarget>();
         Debug.Log("Purchased & Activated Champion : " + championType);
         activated = true;
         //playerManager.SpendMoney(100); // Deduct the cost of the champion

@@ -157,6 +157,11 @@ public class ArenaGenerator : MonoBehaviour
         {
             // Instantiate the prefab at the specified position and rotation
             GameObject instance = Instantiate(prefab, position, Quaternion.identity);
+            // Add ennemi tag to the instance
+            instance.tag = "ennemi";
+            AITarget aiTarget = instance.AddComponent<AITarget>();
+            aiTarget.setIsEnnemi(true);
+
             instance.name = enemyName;
 
             // Apply a red tint to all renderers in the instantiated enemy

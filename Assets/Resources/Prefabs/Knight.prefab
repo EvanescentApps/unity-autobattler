@@ -83,6 +83,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a9cb56c2b382e342c8eea63fd8b88793, type: 3}
       insertIndex: -1
       addedObject: {fileID: 140919736863940041}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a9cb56c2b382e342c8eea63fd8b88793, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -8678545599929573300}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a9cb56c2b382e342c8eea63fd8b88793, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6604722978969963856}
   m_SourcePrefab: {fileID: 100100000, guid: a9cb56c2b382e342c8eea63fd8b88793, type: 3}
 --- !u!1 &7102642089089872413 stripped
 GameObject:
@@ -164,7 +170,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 411828f4e6c0045ff907dba4bd9de151, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  championDescription: {fileID: 0}
   playerManager: {fileID: 0}
   championType: Chevalier
   playgroundMin: {x: -10, y: 0, z: -10}
@@ -172,6 +177,7 @@ MonoBehaviour:
   objectPrefab: {fileID: 7102642089089872413}
   rotationSpeed: 50
   gameDirection: 0
+  championDescription: {fileID: 0}
 --- !u!95 &140919736863940041
 Animator:
   serializedVersion: 7
@@ -194,3 +200,45 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!195 &-8678545599929573300
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7102642089089872413}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
+--- !u!114 &6604722978969963856
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7102642089089872413}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SerializedVersion: 0
+  m_OverrideArea: 1
+  m_Area: 1
+  m_OverrideGenerateLinks: 0
+  m_GenerateLinks: 0
+  m_IgnoreFromBuild: 0
+  m_ApplyToChildren: 1
+  m_AffectedAgents: ffffffff
