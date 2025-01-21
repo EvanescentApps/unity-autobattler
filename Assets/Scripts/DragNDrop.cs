@@ -331,6 +331,8 @@ public class DragNDrop : MonoBehaviour
     private Color invalidColor = Color.red;
     private Dictionary<Renderer, Color> originalColors = new Dictionary<Renderer, Color>();
 
+    [SerializeField] private GameObject championDescription;
+
     private void Start()
     {
         originalPosition = transform.position; // Store the original position
@@ -393,6 +395,7 @@ public class DragNDrop : MonoBehaviour
     private void OnHover()
     {
         //Debug.Log(championType + " hovered");
+        championDescription.SetActive(true);
     }
 
     private void StartDragging(RaycastHit hit)
