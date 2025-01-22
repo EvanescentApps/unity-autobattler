@@ -2,7 +2,7 @@
 
 ## Fonctionnalités
 - Ce jeu est inspiré de Totally Accurate Battle Simulator
-- Les attacks ne sont déclenchés que si on est sûre de toucher l'ennemi
+- Les attacks ne sont déclenchés que si on est sûre de toucher l'Ennemy
 
 ## Classes communes
 

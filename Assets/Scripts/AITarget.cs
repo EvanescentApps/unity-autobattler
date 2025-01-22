@@ -3,7 +3,7 @@ using UnityEngine.AI;
 
 public class AITarget : MonoBehaviour
 {
-    private bool isEnnemi = false;
+    private bool isEnnemy = false;
     private a_Champion championInfos;
     public float AttackDistance;
     private NavMeshAgent m_Agent;
@@ -25,9 +25,9 @@ public class AITarget : MonoBehaviour
 
     void FindNearestTarget()
     {
-        if (!isEnnemi)
+        if (!isEnnemy)
         {
-            enemies = GameObject.FindGameObjectsWithTag("ennemi");
+            enemies = GameObject.FindGameObjectsWithTag("Ennemy");
         } else
         {
             enemies = GameObject.FindGameObjectsWithTag("Player");
@@ -57,9 +57,9 @@ public class AITarget : MonoBehaviour
         }
     }
 
-    public void setIsEnnemi(bool boolean)
+    public void setIsEnnemy(bool boolean)
     {
-        isEnnemi = boolean;
+        isEnnemy = boolean;
     }
 
     void Update()

@@ -104,7 +104,7 @@ public class ArenaGenerator : MonoBehaviour
                     var enemyCoordinates = arena.GetEnemyCoordinates();
                     if (enemyCoordinates == null)
                     {
-                        Debug.LogError($"Les coordonnées des ennemis de l'arène '{arena.name}' sont nulles.");
+                        Debug.LogError($"Les coordonnées des Ennemys de l'arène '{arena.name}' sont nulles.");
                     }
                 }
                 else
@@ -157,10 +157,10 @@ public class ArenaGenerator : MonoBehaviour
         {
             // Instantiate the prefab at the specified position and rotation
             GameObject instance = Instantiate(prefab, position, Quaternion.identity);
-            // Add ennemi tag to the instance
-            instance.tag = "ennemi";
+            // Add Ennemy tag to the instance
+            instance.tag = "Ennemy";
             AITarget aiTarget = instance.AddComponent<AITarget>();
-            aiTarget.setIsEnnemi(true);
+            aiTarget.setIsEnnemy(true);
 
             instance.name = enemyName;
 
