@@ -18,10 +18,10 @@ MonoBehaviour:
     icon: {fileID: 21300000, guid: 6c9dc5d3b7e63774ea7da6e0f0601181, type: 3}
     entityStats:
       name: Barbare
-      price: 26
+      price: 5
     healthStats:
-      maxHealth: 40
-      armor: 2
+      maxHealth: 50
+      armor: 1
     attackStats:
       cooldown: 3
       range: 3

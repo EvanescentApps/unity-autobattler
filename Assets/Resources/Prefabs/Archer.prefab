@@ -140,11 +140,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 411828f4e6c0045ff907dba4bd9de151, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  championDescription: {fileID: 0}
   playerManager: {fileID: 0}
+  championsDatabase: {fileID: 0}
+  championDescription: {fileID: 2529393943420503997, guid: b6939614fc23f23648d87bcec1ae5dd4, type: 3}
+  descriptionText: {fileID: 0}
+  championType: 
   playgroundMin: {x: 0, y: 0, z: 0}
   playgroundMax: {x: 0, y: 0, z: 0}
-  objectPrefab: {fileID: 0}
+  objectPrefab: {fileID: 5787547420258175469}
   rotationSpeed: 50
   gameDirection: 0
 --- !u!54 &5258939258770924619

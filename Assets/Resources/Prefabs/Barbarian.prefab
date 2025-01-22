@@ -10,15 +10,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 0af71814f4331ba07b0d767cd9bd57b0, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.8
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0af71814f4331ba07b0d767cd9bd57b0, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.8
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0af71814f4331ba07b0d767cd9bd57b0, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.8
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0af71814f4331ba07b0d767cd9bd57b0, type: 3}
       propertyPath: m_LocalPosition.x
@@ -141,7 +141,7 @@ CapsuleCollider:
   m_Radius: 0.96910477
   m_Height: 2.4311454
   m_Direction: 1
-  m_Center: {x: 0.11460519, y: 1.2094957, z: 0.32196164}
+  m_Center: {x: 0, y: 1.2094957, z: 0.32196164}
 --- !u!95 &7644267085390548391
 Animator:
   serializedVersion: 7
@@ -184,7 +184,7 @@ NavMeshAgent:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3420791297075609745}
-  m_Enabled: 1
+  m_Enabled: 0
   m_AgentTypeID: 0
   m_Radius: 0.1
   m_Speed: 3.5
@@ -212,10 +212,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerManager: {fileID: 0}
+  championsDatabase: {fileID: 0}
+  championDescription: {fileID: 2529393943420503997, guid: b6939614fc23f23648d87bcec1ae5dd4, type: 3}
+  descriptionText: {fileID: 0}
   championType: Barbare
   playgroundMin: {x: -10, y: 0, z: -10}
   playgroundMax: {x: 10, y: 0, z: 10}
   objectPrefab: {fileID: 3420791297075609745}
   rotationSpeed: 50
   gameDirection: 0
-  championDescription: {fileID: 0}

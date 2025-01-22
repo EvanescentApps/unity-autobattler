@@ -30,7 +30,6 @@ public class HealthBar : MonoBehaviour
         if (champion != null)
         {
             maxHealth = champion.Health.GetHealth();
-            Debug.Log($"max health is {maxHealth}");
         }
         else
         {

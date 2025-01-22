@@ -5,7 +5,7 @@ using System;
 using static ChampionsDatabaseSO;
 public class GameManager : Manager<GameManager>
 {
-    public ChampionsDatabaseSO entitiesDatabase;
+    [HideInInspector] [SerializeField] private ChampionsDatabaseSO championsDatabase;
 
     public Transform team1Parent;
     public Transform team2Parent;
@@ -52,10 +52,17 @@ public class GameManager : Manager<GameManager>
 
     private void Start()
     {
+        // Load the ChampionsDatabaseSO asset from the Resources folder
+        championsDatabase = Resources.Load<ChampionsDatabaseSO>("Champions Database");
+        if (championsDatabase == null)
+        {
+            Debug.LogError("ChampionsDatabaseSO not found in Resources folder!");
+            return;
+        }
         foreach (var champion in championPositions)
         {
             Vector3 spawnPosition = new Vector3(champion.Value, 0f, 13f);
-            entitiesDatabase.SpawnChampionInStore(champion.Key, spawnPosition);
+            championsDatabase.SpawnChampionInStore(champion.Key, spawnPosition);
         }
     }
 
@@ -77,7 +84,7 @@ public class GameManager : Manager<GameManager>
     if (championPositions.TryGetValue(entityName, out float x))
     {
         Vector3 spawnPosition = new Vector3(x, 0f, 13f);
-        entitiesDatabase.SpawnChampionInStore(entityName, spawnPosition);
+        championsDatabase.SpawnChampionInStore(entityName, spawnPosition);
     }
     else
     {
