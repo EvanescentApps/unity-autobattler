@@ -83,6 +83,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: e3997d21ca3fc7d4db94bc49683ff6b5, type: 3}
       insertIndex: -1
       addedObject: {fileID: -4277625158077107929}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: e3997d21ca3fc7d4db94bc49683ff6b5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -612732232452704871}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: e3997d21ca3fc7d4db94bc49683ff6b5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -846295685673148373}
   m_SourcePrefab: {fileID: 100100000, guid: e3997d21ca3fc7d4db94bc49683ff6b5, type: 3}
 --- !u!1 &1157070250715219969 stripped
 GameObject:
@@ -174,6 +180,7 @@ MonoBehaviour:
   objectPrefab: {fileID: 1157070250715219969}
   rotationSpeed: 50
   gameDirection: 0
+  championDescription: {fileID: 0}
 --- !u!95 &-4277625158077107929
 Animator:
   serializedVersion: 7
@@ -196,3 +203,45 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!195 &-612732232452704871
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1157070250715219969}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
+--- !u!114 &-846295685673148373
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1157070250715219969}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SerializedVersion: 0
+  m_OverrideArea: 1
+  m_Area: 1
+  m_OverrideGenerateLinks: 0
+  m_GenerateLinks: 0
+  m_IgnoreFromBuild: 0
+  m_ApplyToChildren: 1
+  m_AffectedAgents: ffffffff

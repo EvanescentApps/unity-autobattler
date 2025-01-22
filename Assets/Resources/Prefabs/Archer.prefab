@@ -87,6 +87,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9c1799f6b5b4b2bb997d4b328ed3f788, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3044918539349154011}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9c1799f6b5b4b2bb997d4b328ed3f788, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -8822898315699540454}
   m_SourcePrefab: {fileID: 100100000, guid: 9c1799f6b5b4b2bb997d4b328ed3f788, type: 3}
 --- !u!1 &5787547420258175469 stripped
 GameObject:
@@ -102,7 +105,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 5787547420258175469}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.5
+  m_Radius: 0.00001
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
@@ -150,6 +153,7 @@ MonoBehaviour:
   objectPrefab: {fileID: 5787547420258175469}
   rotationSpeed: 50
   gameDirection: 0
+  championDescription: {fileID: 0}
 --- !u!54 &5258939258770924619
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -200,3 +204,25 @@ CapsuleCollider:
   m_Height: 1
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!95 &-8822898315699540454
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5787547420258175469}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 6fd2b8a1586d87baf963189cbb45bb00, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

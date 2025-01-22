@@ -76,9 +76,6 @@ PrefabInstance:
       addedObject: {fileID: 4388707034945220151}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 0af71814f4331ba07b0d767cd9bd57b0, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 7644267085390548391}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 0af71814f4331ba07b0d767cd9bd57b0, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 1473406549778961033}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 0af71814f4331ba07b0d767cd9bd57b0, type: 3}
       insertIndex: -1
@@ -86,6 +83,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 0af71814f4331ba07b0d767cd9bd57b0, type: 3}
       insertIndex: -1
       addedObject: {fileID: -2358543816860256419}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 0af71814f4331ba07b0d767cd9bd57b0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3531613010159270702}
   m_SourcePrefab: {fileID: 100100000, guid: 0af71814f4331ba07b0d767cd9bd57b0, type: 3}
 --- !u!1 &3420791297075609745 stripped
 GameObject:
@@ -186,7 +186,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 3420791297075609745}
   m_Enabled: 0
   m_AgentTypeID: 0
-  m_Radius: 0.1
+  m_Radius: 0.5
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
@@ -221,3 +221,24 @@ MonoBehaviour:
   objectPrefab: {fileID: 3420791297075609745}
   rotationSpeed: 50
   gameDirection: 0
+  championDescription: {fileID: 0}
+--- !u!114 &3531613010159270702
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3420791297075609745}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SerializedVersion: 0
+  m_OverrideArea: 1
+  m_Area: 1
+  m_OverrideGenerateLinks: 0
+  m_GenerateLinks: 0
+  m_IgnoreFromBuild: 0
+  m_ApplyToChildren: 1
+  m_AffectedAgents: ffffffff
