@@ -4,6 +4,7 @@ using System.IO;
 using UnityEngine;
 using System;
 using Unity.AI.Navigation;
+using static ChampionsDatabaseSO;
 
 public class ArenaGenerator : MonoBehaviour
 {    
@@ -64,6 +65,9 @@ public class ArenaGenerator : MonoBehaviour
     }
 
 
+    private GameManager gameManager;
+
+    List<ChampionData> allChampions;
     public NavMeshSurface navMesh;
     public GameObject playground;
     public GameObject obstacleTilePrefab;
@@ -76,6 +80,10 @@ public class ArenaGenerator : MonoBehaviour
 
     void Start()
     {
+
+
+        gameManager = GameManager.Instance;
+
         // Préparation des correspondances
         prefabMapping = new Dictionary<int, GameObject>
         {
@@ -124,22 +132,27 @@ public class ArenaGenerator : MonoBehaviour
 
     void GenerateEnnemy(int enemyType, Vector3 position)
     {
+        Debug.Log("Generating enemy of type " + enemyType + " at position " + position);
         // Load the prefab from the Resources folder
         string prefabPath = string.Empty;
         string enemyName = string.Empty;
+        string entityId= string.Empty;
         switch (enemyType)
         {
             case 5:
                 prefabPath = "Prefabs/Barbarian";
                 enemyName = "BarbarianEnemy";
+                entityId = "Barbare";
                 break;
             case 6:
                 prefabPath = "Prefabs/Knight";
                 enemyName = "KnightEnemy";
+                entityId = "Chevalier";
                 break;
             case 7:
                 prefabPath = "Prefabs/Mage";
                 enemyName = "MageEnemy";
+                entityId = "Magicien";
                 break;
             case 8:
                 prefabPath = "Prefabs/EnemyType8";
@@ -152,38 +165,13 @@ public class ArenaGenerator : MonoBehaviour
                 return;
         }
 
+
         GameObject prefab = Resources.Load<GameObject>(prefabPath);
         if (prefab != null)
         {
-            // Instantiate the prefab at the specified position and rotation
-            GameObject instance = Instantiate(prefab, position, Quaternion.identity);
-            // Add Ennemy tag to the instance
-            instance.tag = "Ennemy";
-            AITarget aiTarget = instance.AddComponent<AITarget>();
-            aiTarget.setIsEnnemy(true);
+            gameManager.championsDatabase.SpawnChampion(enemyName, position, entityId , true);
 
-            instance.name = enemyName;
-
-            // Apply a red tint to all renderers in the instantiated enemy
-            Renderer[] renderers = instance.GetComponentsInChildren<Renderer>();
-            if (renderers.Length > 0)
-            {
-                foreach (Renderer renderer in renderers)
-                {
-                    renderer.material.color = Color.red;
-                }
-            }
-            else
-            {
-                Debug.LogError("Renderer component not found on the instantiated enemy: " + enemyName);
-            }
-
-            // Disable DragNDrop script if it exists
-            DragNDrop dragNDrop = instance.GetComponent<DragNDrop>();
-            if (dragNDrop != null)
-            {
-                dragNDrop.enabled = false;
-            }
+            
         }
         else
         {
@@ -211,8 +199,19 @@ public class ArenaGenerator : MonoBehaviour
         {
             foreach (var (enemyType, position) in enemyCoordinates)
             {
-                GenerateEnnemy(enemyType, new Vector3(position.x * 2 - 9f, 0, position.y * 2 - 9f));
+                if (position != null)
+                {
+                    
+                    GenerateEnnemy(enemyType, new Vector3(position.x * 2 - 9f, 0, position.y * 2 - 9f));
+                }
+                else
+                {
+                    Debug.LogError("Position is null for enemyType: " + enemyType);
+                }
             }
+        }else
+        {
+            Debug.LogError("enemyCoordinates is null.");
         }
 
         int[][] layoutArray = arena.GetLayoutArray();

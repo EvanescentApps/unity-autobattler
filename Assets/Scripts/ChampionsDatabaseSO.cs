@@ -75,14 +75,67 @@ public class ChampionsDatabaseSO : ScriptableObject
     public List<ChampionData> allChampions = new List<ChampionData>();
 
     // Helper method to spawn a champion
-    public a_Champion SpawnChampionInStore(string championName, Vector3 position)
+    // public a_Champion SpawnEntityOnPlayground(string entityName, Vector3 position) {
+    //     ChampionData data = allChampions.Find(c => c.entityStats.name == entityName);
+    //     if (data != null)
+    //     {
+    //         GameObject instance = Instantiate(data.prefab, position, Quaternion.identity);
+    //         a_Champion champion = instance.GetComponent<a_Champion>();
+    //         data.InitializeChampion(champion);
+    //         Debug.Log($"Champion {entityName} spawned on playground!");
+    //         return champion;
+    //     }
+    //     Debug.LogError($"Champion {entityName} not found in database!");
+    //     return null;
+    // }
+
+    public void renderEnnemyRed(GameObject instance){
+        // Apply a red tint to all renderers in the instantiated enemy
+        Renderer[] renderers = instance.GetComponentsInChildren<Renderer>();
+        if (renderers.Length > 0)
+        {
+            foreach (Renderer renderer in renderers)
+            {
+                renderer.material.color = Color.red;
+            }
+        }
+        else
+        {
+            Debug.LogError("Renderer component not found on the instantiated enemy");
+        }
+
+      
+    }
+
+    public void disableDragNDrop(GameObject instance){
+        // Disable DragNDrop script if it exists
+        DragNDrop dragNDrop = instance.GetComponent<DragNDrop>();
+        if (dragNDrop != null)
+        {
+            dragNDrop.enabled = false;
+        }
+    }
+
+    public a_Champion SpawnChampion(string championName, Vector3 position, string entityId, bool isEnnemy = false)
     {
-        ChampionData data = allChampions.Find(c => c.entityStats.name == championName);
+        ChampionData data = allChampions.Find(c => c.entityStats.name == entityId);
         if (data != null)
         {
             GameObject instance = Instantiate(data.prefab, position, Quaternion.identity);
             a_Champion champion = instance.GetComponent<a_Champion>();
             data.InitializeChampion(champion);
+            if (isEnnemy)
+            {
+                instance.tag = "Ennemy";
+                AITarget aiTarget = instance.AddComponent<AITarget>();
+                aiTarget.setIsOpponent(true);
+
+                instance.name = championName;
+
+                renderEnnemyRed(instance);
+
+                disableDragNDrop(instance);
+            }
             Debug.Log($"Champion {championName} spawned in store!");
             return champion;
         }

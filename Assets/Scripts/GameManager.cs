@@ -5,7 +5,7 @@ using System;
 using static ChampionsDatabaseSO;
 public class GameManager : Manager<GameManager>
 {
-    [HideInInspector] [SerializeField] private ChampionsDatabaseSO championsDatabase;
+    [SerializeField] public ChampionsDatabaseSO championsDatabase;
 
     public Transform team1Parent;
     public Transform team2Parent;
@@ -62,7 +62,7 @@ public class GameManager : Manager<GameManager>
         foreach (var champion in championPositions)
         {
             Vector3 spawnPosition = new Vector3(champion.Value, 0f, 13f);
-            championsDatabase.SpawnChampionInStore(champion.Key, spawnPosition);
+            championsDatabase.SpawnChampion(champion.Key, spawnPosition, champion.Key);
         }
     }
 
@@ -84,13 +84,15 @@ public class GameManager : Manager<GameManager>
     if (championPositions.TryGetValue(entityName, out float x))
     {
         Vector3 spawnPosition = new Vector3(x, 0f, 13f);
-        championsDatabase.SpawnChampionInStore(entityName, spawnPosition);
+        championsDatabase.SpawnChampion(entityName, spawnPosition, entityName);
     }
     else
     {
         Debug.LogError("Entity name not found in champion positions dictionary: " + entityName);
     }
 }
+
+   
 
     public List<a_Champion> GetEntitiesAgainst(Team against)
     {

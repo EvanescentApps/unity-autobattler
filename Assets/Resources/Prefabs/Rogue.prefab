@@ -154,10 +154,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 411828f4e6c0045ff907dba4bd9de151, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerManager: {fileID: 0}
-  championsDatabase: {fileID: 0}
-  championDescription: {fileID: 2529393943420503997, guid: b6939614fc23f23648d87bcec1ae5dd4, type: 3}
-  descriptionText: {fileID: 0}
+  championsDatabase: {fileID: 11400000, guid: 8e733be950ffb48439ea937661b082fb, type: 2}
   championType: Rogue
   playgroundMin: {x: -10, y: 0, z: -10}
   playgroundMax: {x: 10, y: 0, z: 10}
@@ -198,10 +195,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 411828f4e6c0045ff907dba4bd9de151, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerManager: {fileID: 0}
-  championsDatabase: {fileID: 0}
-  championDescription: {fileID: 0}
-  descriptionText: {fileID: 0}
+  championsDatabase: {fileID: 11400000, guid: 8e733be950ffb48439ea937661b082fb, type: 2}
   championType: Rogue
   playgroundMin: {x: -10, y: 0, z: -10}
   playgroundMax: {x: 10, y: 0, z: 10}

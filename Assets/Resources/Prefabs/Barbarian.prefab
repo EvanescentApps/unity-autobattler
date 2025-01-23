@@ -86,6 +86,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 0af71814f4331ba07b0d767cd9bd57b0, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3531613010159270702}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 0af71814f4331ba07b0d767cd9bd57b0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7644267085390548391}
   m_SourcePrefab: {fileID: 100100000, guid: 0af71814f4331ba07b0d767cd9bd57b0, type: 3}
 --- !u!1 &3420791297075609745 stripped
 GameObject:
@@ -142,28 +145,6 @@ CapsuleCollider:
   m_Height: 2.4311454
   m_Direction: 1
   m_Center: {x: 0, y: 1.2094957, z: 0.32196164}
---- !u!95 &7644267085390548391
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3420791297075609745}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 6fd2b8a1586d87baf963189cbb45bb00, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &1473406549778961033
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -212,16 +193,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerManager: {fileID: 0}
-  championsDatabase: {fileID: 0}
-  championDescription: {fileID: 2529393943420503997, guid: b6939614fc23f23648d87bcec1ae5dd4, type: 3}
-  descriptionText: {fileID: 0}
+  championsDatabase: {fileID: 11400000, guid: 8e733be950ffb48439ea937661b082fb, type: 2}
   championType: Barbare
   playgroundMin: {x: -10, y: 0, z: -10}
   playgroundMax: {x: 10, y: 0, z: 10}
   objectPrefab: {fileID: 3420791297075609745}
   rotationSpeed: 50
   gameDirection: 0
-  championDescription: {fileID: 0}
 --- !u!114 &3531613010159270702
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -242,3 +220,25 @@ MonoBehaviour:
   m_IgnoreFromBuild: 0
   m_ApplyToChildren: 1
   m_AffectedAgents: ffffffff
+--- !u!95 &7644267085390548391
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3420791297075609745}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 6fd2b8a1586d87baf963189cbb45bb00, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

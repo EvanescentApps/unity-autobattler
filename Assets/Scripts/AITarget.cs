@@ -3,12 +3,16 @@ using UnityEngine.AI;
 
 public class AITarget : MonoBehaviour
 {
-    private bool isEnnemy = false;
-    private a_Champion championInfos;
+    private bool isOpponent = false;
+    private a_Champion champion;
     public float AttackDistance;
     private NavMeshAgent m_Agent;
     private float m_Distance;
     private Transform m_CurrentTarget;
+
+    private a_Champion m_CurrentOpponent;
+
+    
     private float m_NextTargetUpdateTime;
     public float TargetUpdateInterval = 0.2f;
     private GameObject[] enemies;
@@ -16,8 +20,8 @@ public class AITarget : MonoBehaviour
     void Start()
     {
         m_Agent = GetComponent<NavMeshAgent>();
-        championInfos = GetComponent<a_Champion>();
-        AttackDistance = championInfos.Attack.Distance;
+        champion = GetComponent<a_Champion>();
+        AttackDistance = champion.Attack.Distance;
         Debug.Log($"Attack range {m_Distance}");
         FindNearestTarget();
         Debug.Log("Start finding nearest target");
@@ -25,7 +29,7 @@ public class AITarget : MonoBehaviour
 
     void FindNearestTarget()
     {
-        if (!isEnnemy)
+        if (!isOpponent)
         {
             enemies = GameObject.FindGameObjectsWithTag("Ennemy");
         } else
@@ -35,6 +39,7 @@ public class AITarget : MonoBehaviour
 
         float nearestDistance = float.MaxValue;
         Transform nearestTarget = null;
+        a_Champion nearestOpponent = null;
 
         foreach (GameObject enemy in enemies)
         {
@@ -43,10 +48,12 @@ public class AITarget : MonoBehaviour
             {
                 nearestDistance = distance;
                 nearestTarget = enemy.transform;
+                nearestOpponent = enemy.GetComponent<a_Champion>();
             }
         }
 
         m_CurrentTarget = nearestTarget;
+        m_CurrentOpponent = nearestOpponent;
         if (m_CurrentTarget != null)
         {
             Debug.Log("Found nearest target: " + m_CurrentTarget.name);
@@ -57,9 +64,9 @@ public class AITarget : MonoBehaviour
         }
     }
 
-    public void setIsEnnemy(bool boolean)
+    public void setIsOpponent(bool boolean)
     {
-        isEnnemy = boolean;
+        isOpponent = boolean;
     }
 
     void Update()
@@ -74,22 +81,32 @@ public class AITarget : MonoBehaviour
         // If no target, return
         if (m_CurrentTarget == null)
         {
-            m_Agent.isStopped = true;
+            if (m_Agent.isOnNavMesh)
+                {
+                    m_Agent.isStopped = true;
+                }            
             return;
         }
 
         // Continuously update the agent's destination
         m_Distance = Vector3.Distance(transform.position, m_CurrentTarget.position);
-        if (m_Distance < AttackDistance / 2)
+        if (m_Distance < AttackDistance/2)
         {
-            m_Agent.isStopped = true;
-            Debug.Log("Arrived at target. Stopping agent");
+            if (m_Agent.isOnNavMesh)
+                {
+                    Debug.Log("Arrived at target. Stopping agent");
+                    Debug.Log($"Arrived at target. My Health: {champion.Health.CurrentHealth} Opponent Health: {m_CurrentOpponent.Health.CurrentHealth}");
+                    m_Agent.isStopped = true;
+                }            
         }
         else
         {
-            m_Agent.isStopped = false;
-            m_Agent.SetDestination(m_CurrentTarget.position);
-            Debug.Log("Moving towards target");
+            if (m_Agent.isOnNavMesh)
+                {
+                    m_Agent.isStopped = false;
+                    m_Agent.SetDestination(m_CurrentTarget.position);
+                } 
+            
 
             // Rotate towards movement direction
             Vector3 direction = m_Agent.velocity.normalized;

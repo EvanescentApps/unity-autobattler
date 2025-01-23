@@ -7,7 +7,7 @@ using UnityEngine.AI;
 
 public class DragNDrop : MonoBehaviour
 {
-    [SerializeField] private PlayerData playerManager;
+    // [SerializeField] private PlayerData playerManager;
     [SerializeField] private ChampionsDatabaseSO championsDatabase;
 
     [SerializeField] private string championType;
