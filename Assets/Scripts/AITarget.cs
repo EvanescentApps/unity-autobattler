@@ -14,7 +14,7 @@ public class AITarget : MonoBehaviour
 
     
     private float m_NextTargetUpdateTime;
-    public float TargetUpdateInterval = 0.2f;
+    public float TargetUpdateInterval = 0.1f;
     private GameObject[] enemies;
 
     void Start()
@@ -90,7 +90,7 @@ public class AITarget : MonoBehaviour
 
         // Continuously update the agent's destination
         m_Distance = Vector3.Distance(transform.position, m_CurrentTarget.position);
-        if (m_Distance < AttackDistance/2)
+        if (m_Distance < AttackDistance*0.6)
         {
             if (m_Agent.isOnNavMesh)
                 {
