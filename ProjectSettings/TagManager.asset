@@ -9,6 +9,7 @@ TagManager:
   - Sand
   - Store
   - ClassicTile
+  - Ennemy
   layers:
   - Default
   - TransparentFX
