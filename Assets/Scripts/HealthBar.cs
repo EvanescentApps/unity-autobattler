@@ -5,8 +5,8 @@ using UnityEngine;
 public class HealthBar : MonoBehaviour
 {
     [SerializeField] public Transform bar;
-    public Vector3 offset; // Offset to position the health bar above the champion
-
+    private Vector3 offset; // Offset to position the health bar above the champion
+    private Camera mainCamera;
     private float maxHealth;
     public Transform target;
 
@@ -26,6 +26,8 @@ public class HealthBar : MonoBehaviour
 
     private void Start()
     {
+        mainCamera = Camera.main;
+        offset = new Vector3(0, 2.1f, 0);
         a_Champion champion = GetComponentInParent<a_Champion>();
         if (champion != null)
         {
@@ -42,5 +44,7 @@ public class HealthBar : MonoBehaviour
         if(target != null){
             transform.position = target.position + offset;
         }
+        transform.LookAt(transform.position + mainCamera.transform.rotation * Vector3.forward, mainCamera.transform.rotation * Vector3.up);
+
     }
 }
