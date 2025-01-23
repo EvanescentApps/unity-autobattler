@@ -2,10 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-using static ChampionsDatabaseSO;
+using TMPro;
+
 public class GameManager : Manager<GameManager>
 {
     [SerializeField] public ChampionsDatabaseSO championsDatabase;
+    [SerializeField] private TextMeshProUGUI moneyText;
 
     public Transform team1Parent;
     public Transform team2Parent;
@@ -18,6 +20,24 @@ public class GameManager : Manager<GameManager>
 
     List<a_Champion> playerEntities = new List<a_Champion>();
     List<a_Champion> ennemyEntities = new List<a_Champion>();
+    public int Money { get; private set; }
+
+    public void SpendMoney(int amount)
+    {
+        Money -= amount;
+        moneyText.text = Money.ToString();
+    }
+
+    public void setMoney(int amount)
+    {
+        Money = amount;
+        moneyText.text = Money.ToString();
+    }
+
+    public bool CanAfford(int amount)
+    {
+        return amount <= Money;
+    }
 
     // public void OnEntityBought(ChampionsDatabaseSO.ChampionData championData)
     // {
@@ -60,6 +80,8 @@ public class GameManager : Manager<GameManager>
 
     private void Start()
     {
+        setMoney(30);
+        moneyText.text = Money.ToString();
         // Load the ChampionsDatabaseSO asset from the Resources folder
         championsDatabase = Resources.Load<ChampionsDatabaseSO>("Champions Database");
         if (championsDatabase == null)
