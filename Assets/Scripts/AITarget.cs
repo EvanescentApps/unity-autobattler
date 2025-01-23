@@ -58,10 +58,10 @@ public class AITarget : MonoBehaviour
         {
             Debug.Log("Found nearest target: " + m_CurrentTarget.name);
         }
-        else
-        {
-            Debug.Log("No targets found");
-        }
+        // else
+        // {
+        //     Debug.Log("No targets found");
+        // }
     }
 
     public void setIsOpponent(bool boolean)
@@ -94,7 +94,6 @@ public class AITarget : MonoBehaviour
         {
             if (m_Agent.isOnNavMesh)
                 {
-                    Debug.Log("Arrived at target. Stopping agent");
                     Debug.Log($"Arrived at target. My Health: {champion.Health.CurrentHealth} Opponent Health: {m_CurrentOpponent.Health.CurrentHealth}");
                     m_Agent.isStopped = true;
                 }            

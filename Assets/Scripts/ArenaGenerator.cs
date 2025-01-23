@@ -241,15 +241,28 @@ public class ArenaGenerator : MonoBehaviour
                     if (type == 3)
                     {
                         tile.tag = "Hole"; // Assign the "Hole" tag
-                        navMesh.BuildNavMesh();
+                        try
+                        {
+                            navMesh.BuildNavMesh();
+                        }
+                        catch (System.Exception ex)
+                        {
+                            //Debug.LogWarning("Failed to build NavMesh: " + ex.Message);
+                        }
                     }
-                    else if (type == 4)
-                    {
-                        navMesh.BuildNavMesh();
-                    }
+                    
                     if (type == 2)
                     {
                         tile.tag = "Obstacle"; // Assign the "Obstacle" tag
+                        
+                        try
+                        {
+                            navMesh.BuildNavMesh();
+                        }
+                        catch (System.Exception ex)
+                        {
+                            //Debug.LogWarning("Failed to build NavMesh: " + ex.Message);
+                        }
                     }
                     if(type == 1)
                     {
@@ -259,6 +272,11 @@ public class ArenaGenerator : MonoBehaviour
                     {
                         tile.tag = "ClassicTile"; // Assign the "Classic" tag
                     }
+                    // }else if (type == 4)
+                    // {
+                    //     navMesh.BuildNavMesh();
+                    // }
+
                 }
                 else
                 {

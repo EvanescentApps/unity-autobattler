@@ -14,6 +14,8 @@ public class GameManager : Manager<GameManager>
     public Action OnRoundEnd;
     public Action<a_Champion> OnUnitDied;
 
+    public bool IsGameStarted { get; private set; } = false;
+
     List<a_Champion> playerEntities = new List<a_Champion>();
     List<a_Champion> ennemyEntities = new List<a_Champion>();
 
@@ -33,6 +35,12 @@ public class GameManager : Manager<GameManager>
     {
         playerEntities.Add(newEntity);
         Debug.Log("Player entities count: " + playerEntities.Count);
+    }
+
+    public void StartBattle()
+    {
+        IsGameStarted = true;
+       // OnRoundStart?.Invoke(); ??? TODO
     }
 
     public void OnEnnemySpawn(ChampionsDatabaseSO.ChampionData championData)

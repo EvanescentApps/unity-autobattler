@@ -57,15 +57,19 @@ public class DragNDrop : MonoBehaviour
 
     private void Update()
     {
-        HandleMouseInput();
-        if (isDragging)
-        {
-            gameObject.GetComponent<NavMeshAgent>().enabled = false;
-            DragObject();
-            CheckHoverZone();
+        bool gameStarted = GameManager.Instance.IsGameStarted;
+        if (!gameStarted) {
+            HandleMouseInput();
+            if (isDragging)
+            {
+                gameObject.GetComponent<NavMeshAgent>().enabled = false;
+                DragObject();
+                CheckHoverZone();
+            }
+            HandleRotation();
+            CheckHover();
         }
-        HandleRotation();
-        CheckHover();
+        
     }
 
     private void HandleMouseInput()
