@@ -332,7 +332,8 @@ public class DragNDrop : MonoBehaviour
                 case "Hole":
                 case "Obstacle":
                     Debug.Log("Dropped on an invalid zone, " + hitTag);
-                    ResetPosition();
+                    //ResetPosition();
+                    ResetColor();
                     break;
                 default:
                     Debug.Log("Dropped on an invalid zone, " + hitTag);
