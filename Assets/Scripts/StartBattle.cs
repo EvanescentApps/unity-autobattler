@@ -10,7 +10,7 @@ public class StartBattle : MonoBehaviour
     }
 
 
-    public void OnButtonPressed()
+    public void OnStartButtonPressed()
     {
         Debug.Log("Button was pressed! Starting the battle...");
 
@@ -19,9 +19,15 @@ public class StartBattle : MonoBehaviour
 
         // SetActiveCamera(gameViewCamera);
 
-
-        // Add your custom logic here
     }
+
+    public void OnResetButtonPressed()
+    {
+        Debug.Log("Button was pressed! Resetting the battle...");
+
+        GameManager.Instance.ResetBattle();
+    }
+
     // private void SetActiveCamera(Camera activeCamera)
     // {
     //     // Disable all other cameras

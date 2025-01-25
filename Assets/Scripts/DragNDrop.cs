@@ -18,13 +18,10 @@ public class DragNDrop : MonoBehaviour
     private float zCoordinate; // Z coordinate for proper depth calculation
     private bool isDragging = false; // Track whether the object is being dragged
     private Vector3 originalPosition; // Store the original position of the object
-    public Vector3 playgroundMin = new Vector3(-10, 0, -10); // Minimum bounds of the playground
-    public Vector3 playgroundMax = new Vector3(10, 0, 10); // Maximum bounds of the playground
     public GameObject objectPrefab; // Prefab of the object to instantiate
     private Quaternion targetRotation; // Target rotation for the object
     private bool isRotating = false; // Track whether the object is rotating
-    public float rotationSpeed = 50.0f; // Speed of the rotation
-    public bool gameDirection = false;
+    private bool gameDirection = false;
     private float rotationDuration = 0.2f; // Duration of the rotation
     private float rotationTime = 0; // Time elapsed for the rotation
     private Rigidbody rb;
@@ -212,6 +209,7 @@ public class DragNDrop : MonoBehaviour
         Debug.Log("Purchased & Activated Champion : " + championType);
         activated = true;
         a_Champion champion = GetComponent<a_Champion>();
+        Debug.Log("Champion price: " + champion.Entity.Price);
         GameManager.Instance.SpendMoney(champion.Entity.Price); // Deduct the cost of the champion
         GameManager.Instance.AddEntityToPlayerEntities(champion);
         // TODO GameManager add entity to player entities

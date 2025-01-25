@@ -62,7 +62,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 7120ccc2645ec5dcba9e3d844ad02393, type: 3}
       propertyPath: m_Name
-      value: RogueHooded
+      value: Robinhood
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -76,16 +76,16 @@ PrefabInstance:
       addedObject: {fileID: 4198921380763220656}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 7120ccc2645ec5dcba9e3d844ad02393, type: 3}
       insertIndex: -1
-      addedObject: {fileID: -1673417730277451356}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 7120ccc2645ec5dcba9e3d844ad02393, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: -6470362175075398985}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 7120ccc2645ec5dcba9e3d844ad02393, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 2770626830984409308}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 7120ccc2645ec5dcba9e3d844ad02393, type: 3}
       insertIndex: -1
-      addedObject: {fileID: -2839080450678441921}
+      addedObject: {fileID: 4123223771695404054}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 7120ccc2645ec5dcba9e3d844ad02393, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6364848606443878771}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 7120ccc2645ec5dcba9e3d844ad02393, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4088394232894458499}
   m_SourcePrefab: {fileID: 100100000, guid: 7120ccc2645ec5dcba9e3d844ad02393, type: 3}
 --- !u!1 &5443911972350216077 stripped
 GameObject:
@@ -127,13 +127,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   championsDatabase: {fileID: 11400000, guid: 8e733be950ffb48439ea937661b082fb, type: 2}
-  championType: RogueHooded
-  playgroundMin: {x: -10, y: 0, z: -10}
-  playgroundMax: {x: 10, y: 0, z: 10}
+  championType: Robinhood
   objectPrefab: {fileID: 5443911972350216077}
-  rotationSpeed: 50
-  gameDirection: 0
---- !u!54 &-1673417730277451356
+--- !u!114 &2770626830984409308
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5443911972350216077}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7fd710c119931ab9bccfcf34399e37d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  barPrefab: {fileID: 706086590420014964, guid: fc0f97afc589109478374a31692e9eef, type: 3}
+--- !u!54 &4123223771695404054
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -157,10 +166,10 @@ Rigidbody:
   m_ImplicitTensor: 1
   m_UseGravity: 1
   m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
---- !u!136 &-6470362175075398985
+  m_Interpolate: 1
+  m_Constraints: 122
+  m_CollisionDetection: 1
+--- !u!136 &6364848606443878771
 CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -179,24 +188,11 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.83
-  m_Height: 2.461795
+  m_Radius: 0.8269833
+  m_Height: 2.4617946
   m_Direction: 1
-  m_Center: {x: 0, y: 1.209352, z: 0}
---- !u!114 &2770626830984409308
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5443911972350216077}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d7fd710c119931ab9bccfcf34399e37d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  barPrefab: {fileID: 706086590420014964, guid: fc0f97afc589109478374a31692e9eef, type: 3}
---- !u!195 &-2839080450678441921
+  m_Center: {x: 0, y: 1.2093517, z: 0}
+--- !u!195 &4088394232894458499
 NavMeshAgent:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -206,7 +202,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 3.5
+  m_Speed: 20
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120

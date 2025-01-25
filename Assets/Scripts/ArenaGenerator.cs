@@ -121,7 +121,7 @@ public class ArenaGenerator : MonoBehaviour
                 }
             }
 
-            GenerateArena(arenaData.arenas[0]); // Génère la première arène par défaut
+            GenerateArena(arenaData.arenas[1]); // Génère la première arène par défaut
             
         }
         else
@@ -140,25 +140,29 @@ public class ArenaGenerator : MonoBehaviour
         switch (enemyType)
         {
             case 5:
-                prefabPath = "Prefabs/Barbarian";
-                enemyName = "BarbarianEnemy";
+                prefabPath = "Prefabs/Barbare";
+                enemyName = "BarbareEnnemy";
                 entityId = "Barbare";
                 break;
             case 6:
-                prefabPath = "Prefabs/Knight";
-                enemyName = "KnightEnemy";
+                prefabPath = "Prefabs/Chevalier";
+                enemyName = "ChevalierEnnemy";
                 entityId = "Chevalier";
                 break;
             case 7:
-                prefabPath = "Prefabs/Mage";
-                enemyName = "MageEnemy";
+                prefabPath = "Prefabs/Magicien";
+                enemyName = "MagicienEnnemy";
                 entityId = "Magicien";
                 break;
             case 8:
-                prefabPath = "Prefabs/EnemyType8";
+                prefabPath = "Prefabs/Archer";
+                enemyName = "ArcherEnnemy";
+                entityId = "Archer";
                 break;
             case 9:
-                prefabPath = "Prefabs/EnemyType9";
+                prefabPath = "Prefabs/Robinhood";
+                enemyName = "RobinhoodEnnemy";
+                entityId = "Robinhood";
                 break;
             default:
                 Debug.LogError("Invalid enemy type: " + enemyType);

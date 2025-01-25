@@ -73,7 +73,7 @@ MonoBehaviour:
       damage: 6
     movementStats:
       speed: 7
-  - prefab: {fileID: 2748188118753009098, guid: 3a6ecd85e50997a4c90fcf645208e77f, type: 3}
+  - prefab: {fileID: 5443911972350216077, guid: 1f9c469db9939a162a182ff550b1ad0e, type: 3}
     description: Robinhood
     icon: {fileID: 21300000, guid: 3c2a60165b4fb1e4f8fc39c4fe5568f2, type: 3}
     entityStats:

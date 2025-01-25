@@ -24,8 +24,11 @@ public class GameManager : Manager<GameManager>
     List<a_Champion> ennemyEntities = new List<a_Champion>();
     public int Money { get; private set; }
 
+    private int initialMoney = 300;
+
     public void SpendMoney(int amount)
     {
+        Debug.Log("Spending money: " + amount);
         Money -= amount;
         moneyText.text = Money.ToString();
     }
@@ -61,8 +64,46 @@ public class GameManager : Manager<GameManager>
 
     public void StartBattle()
     {
+        // TODO : CHECK IF UNITS ARE PLACED, ELSE WARN
         IsGameStarted = true;
+
+        // TODO : HIDE BOTH BUTTONS !
+
        // OnRoundStart?.Invoke(); ??? TODO
+    }
+
+    public void ResetBattle()
+    {
+        if (IsGameStarted)
+        {
+            Debug.Log("Cannot reset the units during the battle!");
+        } else {
+            Debug.Log("Resetting the battle...");
+            // TODO : RESET UNITS POSITIONS
+            // TODO : RESET MONEY
+            // TODO : reset list of Champions and destroy them
+
+             // 1) Reset unit positions (example: move them to origin)
+            foreach (var champ in playerEntities)
+            {
+                champ.transform.position = Vector3.zero;
+            }
+            foreach (var champ in ennemyEntities)
+            {
+                champ.transform.position = Vector3.zero;
+            }
+
+            // 2) Reset money
+            setMoney(initialMoney); 
+            moneyText.text = Money.ToString();
+
+            // 3) Destroy champions and clear lists
+            foreach (var champ in playerEntities) Destroy(champ.gameObject);
+            playerEntities.Clear();
+            foreach (var champ in ennemyEntities) Destroy(champ.gameObject);
+            ennemyEntities.Clear();
+        }
+        // OnRoundEnd?.Invoke(); ??? TODO
     }
 
     public void OnEnnemySpawn(ChampionsDatabaseSO.ChampionData championData)
@@ -77,7 +118,9 @@ public class GameManager : Manager<GameManager>
         {
             { "Barbare", 7.5f },
             { "Magicien", 5.0f },
-            { "Chevalier", 2.5f }
+            { "Chevalier", 2.5f },
+            { "Archer", 0.0f },
+            { "Robinhood", -2.5f },
         };
 
 
@@ -100,7 +143,7 @@ public class GameManager : Manager<GameManager>
             championsDatabase.SpawnChampion(champion.Key, spawnPosition, champion.Key);
         }
 
-        setMoney(300);
+        setMoney(initialMoney);
         moneyText.text = Money.ToString();
     }
 

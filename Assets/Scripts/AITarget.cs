@@ -71,48 +71,50 @@ public class AITarget : MonoBehaviour
 
     void Update()
     {
-        // Periodically update the nearest target
-        if (Time.time >= m_NextTargetUpdateTime)
-        {
-            FindNearestTarget();
-            m_NextTargetUpdateTime = Time.time + TargetUpdateInterval;
-        }
-
-        // If no target, return
-        if (m_CurrentTarget == null)
-        {
-            if (m_Agent.isOnNavMesh)
-                {
-                    m_Agent.isStopped = true;
-                }            
-            return;
-        }
-
-        // Continuously update the agent's destination
-        m_Distance = Vector3.Distance(transform.position, m_CurrentTarget.position);
-        if (m_Distance < AttackDistance*0.6)
-        {
-            if (m_Agent.isOnNavMesh)
-                {
-                    Debug.Log($"Arrived at target. My Health: {champion.Health.CurrentHealth} Opponent Health: {m_CurrentOpponent.Health.CurrentHealth}");
-                    m_Agent.isStopped = true;
-                }            
-        }
-        else
-        {
-            if (m_Agent.isOnNavMesh)
-                {
-                    m_Agent.isStopped = false;
-                    m_Agent.SetDestination(m_CurrentTarget.position);
-                } 
-            
-
-            // Rotate towards movement direction
-            Vector3 direction = m_Agent.velocity.normalized;
-            if (direction.magnitude > 0)
+        if(GameManager.Instance.IsGameStarted){
+            // Periodically update the nearest target
+            if (Time.time >= m_NextTargetUpdateTime)
             {
-                Quaternion targetRotation = Quaternion.LookRotation(direction);
-                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 10f);
+                FindNearestTarget();
+                m_NextTargetUpdateTime = Time.time + TargetUpdateInterval;
+            }
+
+            // If no target, return
+            if (m_CurrentTarget == null)
+            {
+                if (m_Agent.isOnNavMesh)
+                    {
+                        m_Agent.isStopped = true;
+                    }            
+                return;
+            }
+
+            // Continuously update the agent's destination
+            m_Distance = Vector3.Distance(transform.position, m_CurrentTarget.position);
+            if (m_Distance < AttackDistance*0.6)
+            {
+                if (m_Agent.isOnNavMesh)
+                    {
+                        Debug.Log($"Arrived at target. My Health: {champion.Health.CurrentHealth} Opponent Health: {m_CurrentOpponent.Health.CurrentHealth}");
+                        m_Agent.isStopped = true;
+                    }            
+            }
+            else
+            {
+                if (m_Agent.isOnNavMesh)
+                    {
+                        m_Agent.isStopped = false;
+                        m_Agent.SetDestination(m_CurrentTarget.position);
+                    } 
+                
+
+                // Rotate towards movement direction
+                Vector3 direction = m_Agent.velocity.normalized;
+                if (direction.magnitude > 0)
+                {
+                    Quaternion targetRotation = Quaternion.LookRotation(direction);
+                    transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 10f);
+                }
             }
         }
     }
