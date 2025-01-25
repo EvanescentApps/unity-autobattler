@@ -121,7 +121,7 @@ public class ArenaGenerator : MonoBehaviour
                 }
             }
 
-            GenerateArena(arenaData.arenas[1]); // Génère la première arène par défaut
+            GenerateArena(arenaData.arenas[2]); // Génère la première arène par défaut
             
         }
         else
@@ -249,7 +249,7 @@ public class ArenaGenerator : MonoBehaviour
                         {
                             navMesh.BuildNavMesh();
                         }
-                        catch (System.Exception ex)
+                        catch (Exception)
                         {
                             //Debug.LogWarning("Failed to build NavMesh: " + ex.Message);
                         }
@@ -263,7 +263,7 @@ public class ArenaGenerator : MonoBehaviour
                         {
                             navMesh.BuildNavMesh();
                         }
-                        catch (System.Exception ex)
+                        catch (Exception)
                         {
                             //Debug.LogWarning("Failed to build NavMesh: " + ex.Message);
                         }

@@ -14,7 +14,7 @@ public class AITarget : MonoBehaviour
 
     
     private float m_NextTargetUpdateTime;
-    public float TargetUpdateInterval = 0.1f;
+    public float TargetUpdateInterval = 0.01f;
     private GameObject[] enemies;
 
     void Start()
@@ -56,7 +56,7 @@ public class AITarget : MonoBehaviour
         m_CurrentOpponent = nearestOpponent;
         if (m_CurrentTarget != null)
         {
-            Debug.Log("Found nearest target: " + m_CurrentTarget.name);
+            //Debug.Log("Found nearest target: " + m_CurrentTarget.name);
         }
         // else
         // {

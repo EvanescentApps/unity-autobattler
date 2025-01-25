@@ -17,7 +17,7 @@ public class DragNDrop : MonoBehaviour
     private float yPosition; // Fixed Y position for the object
     private float zCoordinate; // Z coordinate for proper depth calculation
     private bool isDragging = false; // Track whether the object is being dragged
-    private Vector3 originalPosition; // Store the original position of the object
+    private Vector3 previousPos; // Store the original position of the object
     public GameObject objectPrefab; // Prefab of the object to instantiate
     private Quaternion targetRotation; // Target rotation for the object
     private bool isRotating = false; // Track whether the object is rotating
@@ -42,10 +42,7 @@ public class DragNDrop : MonoBehaviour
             return;
         }
 
-    
-        
-
-        originalPosition = transform.position; // Store the original position
+        previousPos = transform.position; // Store the original position
         targetRotation = transform.rotation; // Initialize target rotation
         rb = GetComponent<Rigidbody>();
         Renderer[] renderers = GetComponentsInChildren<Renderer>();
@@ -76,14 +73,15 @@ public class DragNDrop : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0)) // Left mouse button
         {
-            if (isDragging)
+            if (isDragging) // dropping
             {
                 isDragging = false;
+                Vector3 targetPosition = GetWorldPoint(Input.mousePosition) + offset;
+                transform.position = new Vector3(targetPosition.x, yPosition, targetPosition.z);
                 gameObject.GetComponent<NavMeshAgent>().enabled = true;
-                Debug.Log("I have a navMesh Agent");
                 CheckDropZoneAlternate();
             }
-            else
+            else // picking up
             {
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                 if (Physics.Raycast(ray, out RaycastHit hit) && hit.transform == transform)
@@ -141,6 +139,7 @@ public class DragNDrop : MonoBehaviour
         yPosition = transform.position.y + 0.2f;
         zCoordinate = Camera.main.WorldToScreenPoint(transform.position).z;
         offset = transform.position - GetWorldPoint(Input.mousePosition);
+        
         targetRotation = transform.rotation * Quaternion.Euler(0, 180, 0);
         isRotating = true;
         rotationTime = 0; // Reset the rotation time
@@ -150,6 +149,12 @@ public class DragNDrop : MonoBehaviour
     {
         Vector3 targetPosition = GetWorldPoint(Input.mousePosition) + offset;
         transform.position = new Vector3(targetPosition.x, yPosition, targetPosition.z);
+    }
+
+    private Vector3 GetWorldPoint(Vector3 screenPoint)
+    {
+        screenPoint.z = zCoordinate; // Maintain the depth (Z coordinate)
+        return Camera.main.ScreenToWorldPoint(screenPoint);
     }
 
     private void HandleRotation()
@@ -188,6 +193,7 @@ public class DragNDrop : MonoBehaviour
             else
             {
                 ResetColor();
+               
             }
         }
         else
@@ -196,11 +202,39 @@ public class DragNDrop : MonoBehaviour
         }
     }
 
-    private Vector3 GetWorldPoint(Vector3 screenPoint)
+
+    private void ResetPosition()
     {
-        screenPoint.z = zCoordinate; // Maintain the depth (Z coordinate)
-        return Camera.main.ScreenToWorldPoint(screenPoint);
+        isDragging = false; // Ensure dragging is stopped
+        if (rb != null)
+        {
+            rb.linearVelocity = Vector3.zero; // Reset velocity
+            rb.angularVelocity = Vector3.zero; // Reset angular velocity
+        }
+        ResetColor();
+        StartCoroutine(AnimateResetPosition());
+        transform.position = previousPos;
+        Debug.Log("Current position: " + transform.position);
     }
+    private IEnumerator AnimateResetPosition()
+    {
+        float elapsedTime = 0f;
+        Vector3 startingPosition = transform.position;
+
+        while (elapsedTime < resetDuration)
+        {
+            float t = elapsedTime / resetDuration;
+            transform.position = Vector3.Lerp(startingPosition, previousPos, t);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        // Snap to the exact position to eliminate any glitch
+        transform.position = previousPos;
+        Debug.Log("Resetting the object to the original position: " + previousPos);
+    }
+
+
 
     private void PurchaseChampionAndActivate(string championType)
     {
@@ -254,33 +288,6 @@ public class DragNDrop : MonoBehaviour
         Destroy(gameObject);
     }
 
-    private void ResetPosition()
-    {
-        isDragging = false; // Ensure dragging is stopped
-        if (rb != null)
-        {
-            rb.linearVelocity = Vector3.zero; // Reset velocity
-            rb.angularVelocity = Vector3.zero; // Reset angular velocity
-        }
-        StartCoroutine(AnimateResetPosition());
-        ResetColor();
-    }
-
-    private IEnumerator AnimateResetPosition()
-    {
-        float elapsedTime = 0f;
-        Vector3 startingPosition = transform.position;
-
-        while (elapsedTime < resetDuration)
-        {
-            transform.position = Vector3.Lerp(startingPosition, originalPosition, elapsedTime / resetDuration);
-            elapsedTime += Time.deltaTime;
-            yield return null;
-        }
-
-        transform.position = originalPosition;
-        Debug.Log("Resetting the object to the original position: " + originalPosition);
-    }
 
     private void CheckDropZoneAlternate()
     {
@@ -313,9 +320,9 @@ public class DragNDrop : MonoBehaviour
                             Debug.Log("Not enough money.");
                             ResetPosition();
                         }
-                        originalPosition = transform.position;
+                        previousPos = transform.position;
                     } // Else the champion has just moved
-                    originalPosition = transform.position;
+                    previousPos = transform.position;
                     break;
                 case "Store":
                     Debug.Log("Dropped on the store");

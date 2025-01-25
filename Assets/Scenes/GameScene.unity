@@ -784,9 +784,9 @@ MonoBehaviour:
   m_OverrideTileSize: 0
   m_TileSize: 256
   m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.28333333
+  m_VoxelSize: 0.06666667
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 0}
+  m_NavMeshData: {fileID: 23800000, guid: ea5b0d72c59d8ee03af59bd99dfe4049, type: 2}
   m_BuildHeightMesh: 0
 --- !u!1 &830763427
 GameObject:
@@ -1460,6 +1460,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   championsDatabase: {fileID: 11400000, guid: 8e733be950ffb48439ea937661b082fb, type: 2}
   moneyText: {fileID: 4504891295567428653}
+  startButton: {fileID: 971947866}
+  resetButton: {fileID: 641341803}
   team1Parent: {fileID: 1999827977}
   team2Parent: {fileID: 681029595}
 --- !u!4 &1638379588

@@ -5,14 +5,20 @@ using System;
 using static ChampionsDatabaseSO;
 
 using TMPro;
+using UnityEngine.UI;
 
 public class GameManager : Manager<GameManager>
 {
     [SerializeField] public ChampionsDatabaseSO championsDatabase;
     [SerializeField] private TextMeshProUGUI moneyText;
 
+    [SerializeField] public Button startButton;
+    [SerializeField] public Button resetButton;
+
     public Transform team1Parent;
     public Transform team2Parent;
+
+
 
     public Action OnRoundStart;
     public Action OnRoundEnd;
@@ -65,9 +71,16 @@ public class GameManager : Manager<GameManager>
     public void StartBattle()
     {
         // TODO : CHECK IF UNITS ARE PLACED, ELSE WARN
+        if (playerEntities.Count == 0)
+        {
+            Debug.Log("Cannot start the battle without any units placed!");
+            return;
+        }
         IsGameStarted = true;
+        Debug.Log("Hiding buttons...");
 
-        // TODO : HIDE BOTH BUTTONS !
+        startButton.gameObject.SetActive(false);
+        resetButton.gameObject.SetActive(false);
 
        // OnRoundStart?.Invoke(); ??? TODO
     }
