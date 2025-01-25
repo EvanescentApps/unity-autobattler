@@ -12,6 +12,7 @@ public class DragNDrop : MonoBehaviour
 
     [SerializeField] private string championType;
     ChampionsDatabaseSO.ChampionData championData;
+
     private Vector3 offset;
     private float yPosition; // Fixed Y position for the object
     private float zCoordinate; // Z coordinate for proper depth calculation
@@ -38,12 +39,14 @@ public class DragNDrop : MonoBehaviour
         // Load the ChampionsDatabaseSO asset from the Resources folder
         championsDatabase = Resources.Load<ChampionsDatabaseSO>("Champions Database");
         championData = championsDatabase.allChampions.Find(c => c.entityStats.name == championType);
-
         if (championsDatabase == null)
         {
             Debug.LogError("ChampionsDatabaseSO not found in Resources folder!");
             return;
         }
+
+    
+        
 
         originalPosition = transform.position; // Store the original position
         targetRotation = transform.rotation; // Initialize target rotation
@@ -115,6 +118,7 @@ public class DragNDrop : MonoBehaviour
 
     private void ShowChampionDescription()
     {
+        ChampionsDatabaseSO.ChampionData championData = championsDatabase.allChampions.Find(c => c.entityStats.name == championType);
         if (championData != null)
         {
    
@@ -313,6 +317,7 @@ public class DragNDrop : MonoBehaviour
                         }
                         originalPosition = transform.position;
                     } // Else the champion has just moved
+                    originalPosition = transform.position;
                     break;
                 case "Store":
                     Debug.Log("Dropped on the store");

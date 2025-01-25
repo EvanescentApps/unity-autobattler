@@ -136,7 +136,7 @@ public class ChampionsDatabaseSO : ScriptableObject
 
                 disableDragNDrop(instance);
             }
-            Debug.Log($"Champion {championName} spawned in store!");
+            Debug.Log($"Champion {championName} spawned!");
             return champion;
         }
         Debug.LogError($"Champion {championName} not found in database!");

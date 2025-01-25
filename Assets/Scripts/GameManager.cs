@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using static ChampionsDatabaseSO;
+
 using TMPro;
 
 public class GameManager : Manager<GameManager>
@@ -78,10 +80,10 @@ public class GameManager : Manager<GameManager>
             { "Chevalier", 2.5f }
         };
 
+
     private void Start()
     {
-        setMoney(30);
-        moneyText.text = Money.ToString();
+        
         // Load the ChampionsDatabaseSO asset from the Resources folder
         championsDatabase = Resources.Load<ChampionsDatabaseSO>("Champions Database");
         if (championsDatabase == null)
@@ -89,11 +91,17 @@ public class GameManager : Manager<GameManager>
             Debug.LogError("ChampionsDatabaseSO not found in Resources folder!");
             return;
         }
+
+        Debug.Log("GameManager loaded!");
         foreach (var champion in championPositions)
         {
             Vector3 spawnPosition = new Vector3(champion.Value, 0f, 13f);
+            Debug.Log("Spawning champion: " + champion.Key + " at position: " + spawnPosition);
             championsDatabase.SpawnChampion(champion.Key, spawnPosition, champion.Key);
         }
+
+        setMoney(300);
+        moneyText.text = Money.ToString();
     }
 
     public void AnimateDeath(Vector3 deathPosition) {
