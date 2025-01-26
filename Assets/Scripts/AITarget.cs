@@ -12,10 +12,11 @@ public class AITarget : MonoBehaviour
 
     private a_Champion m_CurrentOpponent;
 
-    
+
     private float m_NextTargetUpdateTime;
     public float TargetUpdateInterval = 0.01f;
     private GameObject[] enemies;
+    private float attackCooldownTimer;
 
     void Start()
     {
@@ -25,6 +26,7 @@ public class AITarget : MonoBehaviour
         Debug.Log($"Attack range {m_Distance}");
         FindNearestTarget();
         Debug.Log("Start finding nearest target");
+        attackCooldownTimer = Time.time;
     }
 
     void FindNearestTarget()
@@ -32,7 +34,8 @@ public class AITarget : MonoBehaviour
         if (!isOpponent)
         {
             enemies = GameObject.FindGameObjectsWithTag("Ennemy");
-        } else
+        }
+        else
         {
             enemies = GameObject.FindGameObjectsWithTag("Player");
         }
@@ -71,7 +74,8 @@ public class AITarget : MonoBehaviour
 
     void Update()
     {
-        if(GameManager.Instance.IsGameStarted){
+        if (GameManager.Instance.IsGameStarted)
+        {
             // Periodically update the nearest target
             if (Time.time >= m_NextTargetUpdateTime)
             {
@@ -83,37 +87,58 @@ public class AITarget : MonoBehaviour
             if (m_CurrentTarget == null)
             {
                 if (m_Agent.isOnNavMesh)
-                    {
-                        m_Agent.isStopped = true;
-                    }            
+                {
+                    m_Agent.isStopped = true;
+                }
                 return;
             }
 
             // Continuously update the agent's destination
             m_Distance = Vector3.Distance(transform.position, m_CurrentTarget.position);
-            if (m_Distance < AttackDistance*0.6)
+            if (m_Distance < AttackDistance * 0.6)
             {
                 if (m_Agent.isOnNavMesh)
+                {
+                    Debug.Log($"Arrived at target. My Health: {champion.Health.CurrentHealth} Opponent Health: {m_CurrentOpponent.Health.CurrentHealth}");
+                    m_Agent.isStopped = true;
+
+                    // Check if the attack cooldown has elapsed
+                    if (Time.time >= attackCooldownTimer)
                     {
-                        Debug.Log($"Arrived at target. My Health: {champion.Health.CurrentHealth} Opponent Health: {m_CurrentOpponent.Health.CurrentHealth}");
-                        m_Agent.isStopped = true;
-                    }            
-            }
-            else
-            {
-                if (m_Agent.isOnNavMesh)
+                        // Apply damage to the enemy
+                        if (m_CurrentOpponent != null)
+                        {
+                            if (m_CurrentOpponent.Health.CurrentHealth <= 0)
+                            {
+                                GameManager.Instance.killUnit(m_CurrentOpponent);
+                            }
+                            else
+                            {
+                                m_CurrentOpponent.Health.TakeDamage(champion.Attack.Damage);
+                                Debug.Log($"Dealt {champion.Attack.Damage} damage to the opponent. Opponent's remaining health: {m_CurrentOpponent.Health.CurrentHealth}");
+                            }
+                        }
+
+                        // Reset the cooldown timer
+                        attackCooldownTimer = Time.time + champion.Attack.Cooldown;
+                    }
+                }
+                else
+                {
+                    if (m_Agent.isOnNavMesh)
                     {
                         m_Agent.isStopped = false;
                         m_Agent.SetDestination(m_CurrentTarget.position);
-                    } 
-                
+                    }
 
-                // Rotate towards movement direction
-                Vector3 direction = m_Agent.velocity.normalized;
-                if (direction.magnitude > 0)
-                {
-                    Quaternion targetRotation = Quaternion.LookRotation(direction);
-                    transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 10f);
+
+                    // Rotate towards movement direction
+                    Vector3 direction = m_Agent.velocity.normalized;
+                    if (direction.magnitude > 0)
+                    {
+                        Quaternion targetRotation = Quaternion.LookRotation(direction);
+                        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 10f);
+                    }
                 }
             }
         }

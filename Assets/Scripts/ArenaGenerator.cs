@@ -174,9 +174,8 @@ public class ArenaGenerator : MonoBehaviour
         GameObject prefab = Resources.Load<GameObject>(prefabPath);
         if (prefab != null)
         {
-            gameManager.championsDatabase.SpawnChampion(enemyName, position, entityId , true);
-
-            
+            a_Champion newEnnemy = gameManager.championsDatabase.SpawnChampion(enemyName, position, entityId , true);
+            gameManager.AddEntityToEnnemyEntities(newEnnemy);
         }
         else
         {

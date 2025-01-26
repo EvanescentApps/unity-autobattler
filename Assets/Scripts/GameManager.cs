@@ -100,6 +100,12 @@ public class GameManager : Manager<GameManager>
         Debug.Log("Player entities count: " + playerEntities.Count);
     }
 
+    public void AddEntityToEnnemyEntities(a_Champion newEntity)
+    {
+        ennemyEntities.Add(newEntity);
+        Debug.Log("Ennemies entities count: " + playerEntities.Count);
+    }
+
     public void StartBattle()
     {
         // TODO : CHECK IF UNITS ARE PLACED, ELSE WARN
@@ -121,7 +127,7 @@ public class GameManager : Manager<GameManager>
 
         isCounting = true;
         elapsedTime = 0f;
-        ShowVictoryPopup(); 
+        // ShowVictoryPopup(); 
        // OnRoundStart?.Invoke(); ??? TODO
     }
 
