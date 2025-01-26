@@ -64,6 +64,7 @@ public class ArenaGenerator : MonoBehaviour
         public Arena[] arenas;
     }
 
+    [SerializeField] public int arenaIndex = 0;
 
     private GameManager gameManager;
 
@@ -121,7 +122,7 @@ public class ArenaGenerator : MonoBehaviour
                 }
             }
 
-            GenerateArena(arenaData.arenas[2]); // Génère la première arène par défaut
+            GenerateArena(arenaData.arenas[arenaIndex]); // Génère la première arène par défaut
             
         }
         else

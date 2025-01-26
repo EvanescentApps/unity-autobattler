@@ -5,7 +5,7 @@ public class FadeOut : MonoBehaviour
 {
     private Renderer objectRenderer;
     private Color originalColor;
-    private float fadeDuration = 0.5f;
+    private float fadeDuration = 1f;
 
     void Start()
     {

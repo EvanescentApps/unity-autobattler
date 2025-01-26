@@ -107,6 +107,7 @@ public class DragNDrop : MonoBehaviour
         }
         else
         {
+            CharacteristicsManager.Instance.UnitHovered = false;
             // CharacteristicsManager.Instance.HideCharacteristics();
         }
     }
@@ -123,6 +124,7 @@ public class DragNDrop : MonoBehaviour
             
             string name = championData.description;
 
+            CharacteristicsManager.Instance.DisplayImage(championData.entityStats.name.ToLower());
             CharacteristicsManager.Instance.DisplayCharacteristics(championData.healthStats.maxHealth, championData.healthStats.armor, championData.attackStats.cooldown, championData.attackStats.range, championData.attackStats.damage, championData.movementStats.speed, abilityDescription, abilityName, championData.entityStats.price);
             CharacteristicsManager.Instance.DisplayName(championData.entityStats.name);
             // CharacteristicsManager.Instance.ChangeCharacterImage(championData.entityStats.image); // Assuming championData.entityStats.image is a Sprite

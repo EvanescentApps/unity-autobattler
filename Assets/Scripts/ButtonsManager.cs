@@ -28,6 +28,17 @@ public class StartBattle : MonoBehaviour
         GameManager.Instance.ResetBattle();
     }
 
+    
+    public void OnActionButtonPressed() {
+        Debug.Log("Action button pressed!");
+        // TODO : Implement action button logic
+    }
+
+    public void OnHomeButtonPressed() {
+        Debug.Log("Home button pressed!");
+        // TODO : Implement home button logic
+    }
+
     // private void SetActiveCamera(Camera activeCamera)
     // {
     //     // Disable all other cameras

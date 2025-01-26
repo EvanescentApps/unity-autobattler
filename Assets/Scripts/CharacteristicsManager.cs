@@ -14,6 +14,8 @@ public class CharacteristicsManager : MonoBehaviour{
     public TextMeshProUGUI characteristicsText;
     public Image characterImage; 
 
+    public bool UnitHovered = false;
+
     public bool isCharacteristicsPanelActive => characteristicsPanel.activeSelf;
 
     private void Awake(){
@@ -41,6 +43,20 @@ public class CharacteristicsManager : MonoBehaviour{
         }
     }
 
+    private void Update(){
+        if (Input.GetMouseButtonDown(0) && !UnitHovered){ // If the player clicks on the screen and the mouse is not hovering a unit
+            if (characteristicsPanel.activeSelf){
+                Debug.Log("Characteristics panel is DEACTIVATED.");
+                characteristicsPanel.SetActive(false);
+            }
+        }
+    }
+
+    public void DisplayImage(string imageName){
+        Sprite image = Resources.Load<Sprite>($"Images/{imageName}");
+        characterImage.sprite = image;
+    }
+
     public void DisplayCharacteristics(float maxHealth, float armor, float cooldown, float range, float damage, float speed, string capacityDescription, string capacityName, int price){
         
         characteristicsText.text = $"<b>Vitesse:</b> {speed} uu/s\n" +
@@ -57,6 +73,7 @@ public class CharacteristicsManager : MonoBehaviour{
         if (!characteristicsPanel.activeSelf){
             Debug.Log("Characteristics panel is ACTIVATED.");
             characteristicsPanel.SetActive(true);
+            UnitHovered = true;
         }
     }
     // public void HideCharacteristics(){

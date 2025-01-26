@@ -15,6 +15,23 @@ public class GameManager : Manager<GameManager>
     [SerializeField] public Button startButton;
     [SerializeField] public Button resetButton;
 
+    [SerializeField] public GameObject storePanel;
+    [SerializeField] public GameObject UnitInfos;
+
+    [SerializeField] public TextMeshProUGUI TimerText;
+    [SerializeField] public TextMeshProUGUI PlayersAliveText;
+    [SerializeField] public TextMeshProUGUI EnnemiesAliveText;
+
+    [SerializeField] public GameObject Popup;
+
+    [SerializeField] public TextMeshProUGUI PopupTitleText;
+    [SerializeField] public TextMeshProUGUI PopupRecapText;
+    [SerializeField] public TextMeshProUGUI PopupActionButtonText;
+
+    [SerializeField] public Button PopupHomeButton;
+    [SerializeField] public Button PopupActionButton;
+
+
     public Transform team1Parent;
     public Transform team2Parent;
 
@@ -43,6 +60,21 @@ public class GameManager : Manager<GameManager>
     {
         Money = amount;
         moneyText.text = Money.ToString();
+    }
+
+    private float elapsedTime;
+    private bool isCounting;
+
+
+  
+
+    public void killUnit(a_Champion unit)
+    {
+        playerEntities.Remove(unit);
+        ennemyEntities.Remove(unit);
+        Vector3 deathPosition = unit.transform.position;
+        Destroy(unit.gameObject);
+        AnimateDeath(deathPosition);
     }
 
     public bool CanAfford(int amount)
@@ -81,8 +113,27 @@ public class GameManager : Manager<GameManager>
 
         startButton.gameObject.SetActive(false);
         resetButton.gameObject.SetActive(false);
+        storePanel.SetActive(false);
+        UnitInfos.SetActive(false);
+        TimerText.gameObject.SetActive(true);
+        PlayersAliveText.gameObject.SetActive(true);
+        EnnemiesAliveText.gameObject.SetActive(true);
 
+        isCounting = true;
+        elapsedTime = 0f;
+        ShowVictoryPopup(); 
        // OnRoundStart?.Invoke(); ??? TODO
+    }
+
+    private void Update()
+    {
+        if (isCounting)
+        {
+            elapsedTime += Time.deltaTime;
+            TimerText.text = $"Time: {elapsedTime:F2}";
+            PlayersAliveText.text = $"Players alive: {playerEntities.Count}";
+            EnnemiesAliveText.text = $"Ennemies alive: {ennemyEntities.Count}";
+        }
     }
 
     public void ResetBattle()
@@ -118,6 +169,23 @@ public class GameManager : Manager<GameManager>
         }
         // OnRoundEnd?.Invoke(); ??? TODO
     }
+
+    public void ShowDefeatPopup()
+    {
+        Debug.Log("Defeat popup shown!");
+    }
+
+    public void ShowVictoryPopup()
+    {
+        PopupTitleText.text = "Victoire!";
+        string time = elapsedTime.ToString("F2");
+        PopupRecapText.text = "Tous les ennemis ont été vaincus en " + time + " secondes!";
+        PopupActionButtonText.text = "Niveau suivant";
+        Popup.SetActive(true);
+        Debug.Log("Victory popup shown!");
+    }
+
+
 
     public void OnEnnemySpawn(ChampionsDatabaseSO.ChampionData championData)
     {
@@ -158,18 +226,15 @@ public class GameManager : Manager<GameManager>
 
         setMoney(initialMoney);
         moneyText.text = Money.ToString();
+        
     }
 
     public void AnimateDeath(Vector3 deathPosition) {
         GameObject desintegrateParticlePrefab = Resources.Load<GameObject>("Prefabs/CubeDesintegrate");
-        if (desintegrateParticlePrefab != null)
+        for (int i = 0; i < 100; i++)
         {
             GameObject instance = Instantiate(desintegrateParticlePrefab, deathPosition, Quaternion.identity);
             instance.name = "DesintegrationParticle";
-        }
-        else
-        {
-            Debug.LogError("Prefab not found in Resources folder!");
         }
     }
 
