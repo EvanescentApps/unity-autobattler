@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class StartBattle : MonoBehaviour
+public class ButtonsManager : MonoBehaviour
 {
     public Camera gameViewCamera; // Reference to the GameViewCamera
     // public Camera unitPlacementCamera;
@@ -28,13 +28,15 @@ public class StartBattle : MonoBehaviour
         GameManager.Instance.ResetBattle();
     }
 
-    
-    public void OnActionButtonPressed() {
+
+    public void OnActionButtonPressed()
+    {
         Debug.Log("Action button pressed!");
         // TODO : Implement action button logic
     }
 
-    public void OnHomeButtonPressed() {
+    public void OnHomeButtonPressed()
+    {
         Debug.Log("Home button pressed!");
         // TODO : Implement home button logic
     }
