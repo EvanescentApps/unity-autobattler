@@ -25,7 +25,6 @@ public class AITarget : MonoBehaviour
         AttackDistance = champion.Attack.Distance;
         Debug.Log($"Attack range {m_Distance}");
         FindNearestTarget();
-        Debug.Log("Start finding nearest target");
         attackReady = true;
     }
 
