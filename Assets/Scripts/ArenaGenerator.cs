@@ -64,7 +64,7 @@ public class ArenaGenerator : MonoBehaviour
         public Arena[] arenas;
     }
 
-    [SerializeField] public int arenaIndex = 0;
+    [SerializeField] public int arenaIndex = 1;
 
     private GameManager gameManager;
 
@@ -175,6 +175,7 @@ public class ArenaGenerator : MonoBehaviour
         if (prefab != null)
         {
             a_Champion newEnnemy = gameManager.championsDatabase.SpawnChampion(enemyName, position, entityId , true);
+            //newEnnemy.gameObject.layer = LayerMask.NameToLayer("HideNavMesh");
             gameManager.AddEntityToEnnemyEntities(newEnnemy);
         }
         else

@@ -139,6 +139,16 @@ public class GameManager : Manager<GameManager>
             TimerText.text = $"Time: {elapsedTime:F2}";
             PlayersAliveText.text = $"Players alive: {playerEntities.Count}";
             EnnemiesAliveText.text = $"Ennemies alive: {ennemyEntities.Count}";
+            if (playerEntities.Count == 0)
+            {
+                ShowDefeatPopup();
+                isCounting = false;
+            }
+            else if (ennemyEntities.Count == 0)
+            {
+                ShowVictoryPopup();
+                isCounting = false;
+            }
         }
     }
 
@@ -178,6 +188,12 @@ public class GameManager : Manager<GameManager>
 
     public void ShowDefeatPopup()
     {
+        PopupTitleText.text = "Défaite!";
+        string time = elapsedTime.ToString("F2");
+        PopupRecapText.text = "Toutes vos unités ont été vaincues en " + time + " secondes!";
+        PopupActionButtonText.text = "Retenter";
+        Popup.SetActive(true);
+        Debug.Log("Victory popup shown!");
         Debug.Log("Defeat popup shown!");
     }
 
@@ -185,7 +201,7 @@ public class GameManager : Manager<GameManager>
     {
         PopupTitleText.text = "Victoire!";
         string time = elapsedTime.ToString("F2");
-        PopupRecapText.text = "Tous les ennemis ont été vaincus en " + time + " secondes!";
+        PopupRecapText.text = "Tous les unités ennemies ont été vaincues en " + time + " secondes!";
         PopupActionButtonText.text = "Niveau suivant";
         Popup.SetActive(true);
         Debug.Log("Victory popup shown!");
