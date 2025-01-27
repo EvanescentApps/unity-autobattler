@@ -96,15 +96,17 @@ public class ChampionsDatabaseSO : ScriptableObject
         {
             foreach (Renderer renderer in renderers)
             {
+                if (renderer.gameObject.CompareTag("HealthBar")) 
+                {
+                    continue;
+                }
                 renderer.material.color = Color.red;
             }
         }
         else
         {
             Debug.LogError("Renderer component not found on the instantiated enemy");
-        }
-
-      
+        }      
     }
 
     public void disableDragNDrop(GameObject instance){

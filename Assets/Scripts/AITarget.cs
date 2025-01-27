@@ -110,13 +110,9 @@ public class AITarget : MonoBehaviour
                     m_Agent.isStopped = true;
                     if (m_CurrentOpponent != null)
                     {
-                        if (m_CurrentOpponent.Health.CurrentHealth <= 0)
+                        if (attackReady)
                         {
-                            GameManager.Instance.killUnit(m_CurrentOpponent);
-                        }
-                        else if (attackReady)
-                        {
-                            m_CurrentOpponent.Health.TakeDamage(champion.Attack.Damage);
+                            m_CurrentOpponent.TakeDamage(champion.Attack.Damage);
                             Debug.Log($"Dealt {champion.Attack.Damage} damage to the opponent. Opponent's remaining health: {m_CurrentOpponent.Health.CurrentHealth}");
                             StartCoroutine(AttackCooldownRoutine(champion.Attack.Cooldown));
                         }
