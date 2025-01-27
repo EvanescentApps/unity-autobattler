@@ -26,15 +26,18 @@ public class GameManager : Manager<GameManager>
 
     [SerializeField] public TextMeshProUGUI PopupTitleText;
     [SerializeField] public TextMeshProUGUI PopupRecapText;
+
+    [SerializeField] public TextMeshProUGUI PopupDamageRecapText;
     [SerializeField] public TextMeshProUGUI PopupActionButtonText;
 
     [SerializeField] public Button PopupHomeButton;
     [SerializeField] public Button PopupActionButton;
 
 
-    public Transform team1Parent;
-    public Transform team2Parent;
+    [SerializeField] public Transform team1Parent;
+    [SerializeField] public Transform team2Parent;
 
+    [SerializeField] public Transform unitStoreParent;
 
 
     public Action OnRoundStart;
@@ -43,8 +46,8 @@ public class GameManager : Manager<GameManager>
 
     public bool IsGameStarted { get; private set; } = false;
 
-    List<a_Champion> playerEntities = new List<a_Champion>();
-    List<a_Champion> ennemyEntities = new List<a_Champion>();
+    [SerializeField] List<a_Champion> playerEntities = new List<a_Champion>();
+    [SerializeField] List<a_Champion> ennemyEntities = new List<a_Champion>();
     public int Money { get; private set; }
 
     private int initialMoney = 300;
@@ -82,16 +85,6 @@ public class GameManager : Manager<GameManager>
         return amount <= Money;
     }
 
-    // public void OnEntityBought(ChampionsDatabaseSO.ChampionData championData)
-    // {
-    //     a_Champion newEntity = entitiesDatabase.SpawnChampionInStore(championData.entityStats.name,new Vector3(0f, 0f, 13f)); //Instantiate(championData.prefab, team1Parent).GetComponent<a_Champion>();
-    //     newEntity.gameObject.name = championData.entityStats.name;
-    //     // newEntity.gameObject.tag = "Player";
-    //     playerEntities.Add(newEntity);
-
-    // }
-
-    // TODO : SET TAGS
 
     // Method to add entity to player entities
     public void AddEntityToPlayerEntities(a_Champion newEntity)
@@ -127,8 +120,7 @@ public class GameManager : Manager<GameManager>
 
         isCounting = true;
         elapsedTime = 0f;
-        // ShowVictoryPopup(); 
-       // OnRoundStart?.Invoke(); ??? TODO
+       
     }
 
     private void Update()
@@ -190,10 +182,18 @@ public class GameManager : Manager<GameManager>
     {
         PopupTitleText.text = "Défaite!";
         string time = elapsedTime.ToString("F2");
-        PopupRecapText.text = "Toutes vos unités ont été vaincues en " + time + " secondes!";
+        PopupRecapText.text = "Toutes vos unités ont été vaincues en " + time + " secondes :(";
+        string healthInfo = "";
+        for (int i = 0; i < playerEntities.Count; i++)
+        {
+            var champ = ennemyEntities[i];
+            healthInfo += $"{champ.name}: {champ.Health.CurrentHealth}/{champ.Health.maxHealth}";
+            if (i < ennemyEntities.Count - 1) healthInfo += ", ";
+        }
+
+        PopupDamageRecapText.text = "Santé des ennemis restants: " + healthInfo;
         PopupActionButtonText.text = "Retenter";
         Popup.SetActive(true);
-        Debug.Log("Victory popup shown!");
         Debug.Log("Defeat popup shown!");
     }
 
@@ -201,7 +201,17 @@ public class GameManager : Manager<GameManager>
     {
         PopupTitleText.text = "Victoire!";
         string time = elapsedTime.ToString("F2");
-        PopupRecapText.text = "Tous les unités ennemies ont été vaincues en " + time + " secondes!";
+        PopupRecapText.text = "Tous les unités ennemies ont été vaincues en " + time + " secondes!" + " Il vous reste " + playerEntities.Count + " unités.";
+          // Gather each unit's current health / total health
+        string healthInfo = "";
+        for (int i = 0; i < playerEntities.Count; i++)
+        {
+            var champ = playerEntities[i];
+            healthInfo += $"{champ.name}: {champ.Health.CurrentHealth}/{champ.Health.maxHealth}";
+            if (i < playerEntities.Count - 1) healthInfo += ", ";
+        }
+
+        PopupDamageRecapText.text = "Santé des unités restantes: " + healthInfo;
         PopupActionButtonText.text = "Niveau suivant";
         Popup.SetActive(true);
         Debug.Log("Victory popup shown!");
@@ -229,7 +239,8 @@ public class GameManager : Manager<GameManager>
 
     private void Start()
     {
-        
+        Popup.SetActive(false);
+
         // Load the ChampionsDatabaseSO asset from the Resources folder
         championsDatabase = Resources.Load<ChampionsDatabaseSO>("Champions Database");
         if (championsDatabase == null)
@@ -243,7 +254,8 @@ public class GameManager : Manager<GameManager>
         {
             Vector3 spawnPosition = new Vector3(champion.Value, 0f, 13f);
             Debug.Log("Spawning champion: " + champion.Key + " at position: " + spawnPosition);
-            championsDatabase.SpawnChampion(champion.Key, spawnPosition, champion.Key);
+            a_Champion c = championsDatabase.SpawnChampion(champion.Key, spawnPosition, champion.Key);
+            c.gameObject.transform.SetParent(unitStoreParent.transform);
         }
 
         setMoney(initialMoney);
@@ -265,7 +277,8 @@ public class GameManager : Manager<GameManager>
     if (championPositions.TryGetValue(entityName, out float x))
     {
         Vector3 spawnPosition = new Vector3(x, 0f, 13f);
-        championsDatabase.SpawnChampion(entityName, spawnPosition, entityName);
+        a_Champion c = championsDatabase.SpawnChampion(entityName, spawnPosition, entityName);
+        c.gameObject.transform.SetParent(unitStoreParent.transform);
     }
     else
     {

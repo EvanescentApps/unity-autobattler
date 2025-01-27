@@ -177,6 +177,7 @@ public class ArenaGenerator : MonoBehaviour
             a_Champion newEnnemy = gameManager.championsDatabase.SpawnChampion(enemyName, position, entityId , true);
             //newEnnemy.gameObject.layer = LayerMask.NameToLayer("HideNavMesh");
             gameManager.AddEntityToEnnemyEntities(newEnnemy);
+            newEnnemy.transform.SetParent(GameManager.Instance.team2Parent.transform);
         }
         else
         {

@@ -242,6 +242,8 @@ public class DragNDrop : MonoBehaviour
     {
         gameObject.tag = "Player";
         gameObject.AddComponent<AITarget>();
+        gameObject.transform.SetParent(GameManager.Instance.team1Parent.transform);
+
         Debug.Log("Purchased & Activated Champion : " + championType);
         activated = true;
         a_Champion champion = GetComponent<a_Champion>();
