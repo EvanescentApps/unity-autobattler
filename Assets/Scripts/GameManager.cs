@@ -43,7 +43,7 @@ public class GameManager : Manager<GameManager>
     public Action OnRoundEnd;
     public Action<a_Champion> OnUnitDied;
 
-    public bool IsGameStarted { get; private set; } = false;
+    public bool gameStarted { get; private set; } = false;
 
     [SerializeField] List<a_Champion> playerEntities = new List<a_Champion>();
     [SerializeField] List<a_Champion> ennemyEntities = new List<a_Champion>();
@@ -106,7 +106,7 @@ public class GameManager : Manager<GameManager>
             Debug.Log("Cannot start the battle without any units placed!");
             return;
         }
-        IsGameStarted = true;
+        gameStarted = true;
         Debug.Log("Hiding buttons...");
 
         startButton.gameObject.SetActive(false);
@@ -161,7 +161,7 @@ public class GameManager : Manager<GameManager>
 
     public void ResetBattle()
     {
-        if (IsGameStarted)
+        if (gameStarted)
         {
             Debug.Log("Cannot reset the units during the battle!");
         } else {

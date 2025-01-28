@@ -89,7 +89,7 @@ public class AITarget : MonoBehaviour
             animator.SetTrigger("Attack");
         }
 
-        if (GameManager.Instance.IsGameStarted)
+        if (GameManager.Instance.gameStarted)
         {
             // Periodically update the nearest target
             if (Time.time >= m_NextTargetUpdateTime)

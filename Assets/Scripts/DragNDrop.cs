@@ -54,7 +54,7 @@ public class DragNDrop : MonoBehaviour
 
     private void Update()
     {
-        bool gameStarted = GameManager.Instance.IsGameStarted;
+        bool gameStarted = GameManager.Instance.gameStarted;
         if (!gameStarted) {
             HandleMouseInput();
             if (isDragging)
