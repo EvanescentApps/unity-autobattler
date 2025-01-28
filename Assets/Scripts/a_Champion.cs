@@ -9,6 +9,7 @@ public class a_Champion : MonoBehaviour
     public a_Movement Movement { get; private set; }
     public HealthBar barPrefab;
     public GameObject crownPrefab; 
+    public UnitMode currentUnitMode;
     protected HealthBar healthBar;
     protected GameObject crownInstance;
     protected bool dead = false;
