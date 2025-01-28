@@ -986,6 +986,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameViewCamera: {fileID: 0}
+  modeDropdown: {fileID: 1447503605}
 --- !u!1 &679868555
 GameObject:
   m_ObjectHideFlags: 0
@@ -4071,6 +4072,7 @@ MonoBehaviour:
   team2Parent: {fileID: 681029595}
   unitStoreParent: {fileID: 1174247158}
   victory: 0
+  currentUnitMode: 0
   playerEntities: []
   ennemyEntities: []
 --- !u!4 &1638379588
