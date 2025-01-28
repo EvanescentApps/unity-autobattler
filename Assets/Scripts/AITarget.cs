@@ -84,10 +84,7 @@ public class AITarget : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space)) // Replace with your desired input
-        {
-            animator.SetTrigger("Attack");
-        }
+        
 
         if (GameManager.Instance.gameStarted)
         {
@@ -109,21 +106,27 @@ public class AITarget : MonoBehaviour
                 return;
             }
 
-            // Continuously update the agent's destination
+           
+
             m_Distance = Vector3.Distance(transform.position, m_CurrentTarget.position);
+
             if (m_Distance < AttackDistance * 0.75)
             {
+                // STOP AND ATTACK
+
                 if (m_Agent.isOnNavMesh)
                 {
                     //Debug.Log($"Arrived at target. My Health: {champion.Health.CurrentHealth} Opponent Health: {m_CurrentOpponent.Health.CurrentHealth}");
                     m_Agent.isStopped = true;
                     animator.SetBool("isMoving", false);
 
-                    Vector3 directionTowardsOpponent = m_CurrentOpponent.transform.position - transform.position;
+                    
+                     Vector3 directionTowardsOpponent = m_CurrentOpponent.transform.position - transform.position;
                     directionTowardsOpponent.y = 0f;
                     Quaternion targetRotation = Quaternion.LookRotation(directionTowardsOpponent);
                     float rotationSpeed = 5f;
                     transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+                    
 
                     if (m_CurrentOpponent != null)
                     {
@@ -146,22 +149,29 @@ public class AITarget : MonoBehaviour
             }
             else
             {
-                if (m_Agent.isOnNavMesh)
+                if (champion.currentUnitMode == UnitMode.Defense)
                 {
-                    m_Agent.isStopped = false;
-                    animator.SetBool("isMoving", true);
+                    m_Agent.isStopped = true;
 
-                    m_Agent.SetDestination(m_CurrentTarget.position);
+                } else {
+                     if (m_Agent.isOnNavMesh)
+                    {
+                        m_Agent.isStopped = false;
+                        animator.SetBool("isMoving", true);
+
+                        m_Agent.SetDestination(m_CurrentTarget.position);
+                    }
+
+
+                    // Rotate towards movement direction
+                    Vector3 direction = m_Agent.velocity.normalized;
+                    if (direction.magnitude > 0)
+                    {
+                        Quaternion targetRotation = Quaternion.LookRotation(direction);
+                        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 10f);
+                    }
                 }
-
-
-                // Rotate towards movement direction
-                Vector3 direction = m_Agent.velocity.normalized;
-                if (direction.magnitude > 0)
-                {
-                    Quaternion targetRotation = Quaternion.LookRotation(direction);
-                    transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 10f);
-                }
+               
             }
         }
     }

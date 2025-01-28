@@ -247,6 +247,7 @@ public class DragNDrop : MonoBehaviour
         Debug.Log("Purchased & Activated Champion : " + championType);
         activated = true;
         a_Champion champion = GetComponent<a_Champion>();
+        champion.currentUnitMode = GameManager.Instance.currentUnitMode;
         Debug.Log("Champion price: " + champion.Entity.Price);
         GameManager.Instance.SpendMoney(champion.Entity.Price); // Deduct the cost of the champion
         GameManager.Instance.AddEntityToPlayerEntities(champion);

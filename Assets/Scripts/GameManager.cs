@@ -3,10 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using static ChampionsDatabaseSO;
+using UnityEngine.SceneManagement;
 
 using TMPro;
 using UnityEngine.UI;
 using System.Linq;
+
+public enum UnitMode
+{
+    Attack,
+    Defense
+}
 
 public class GameManager : Manager<GameManager>
 {
@@ -39,6 +46,10 @@ public class GameManager : Manager<GameManager>
     [SerializeField] public Transform team2Parent;
 
     [SerializeField] public Transform unitStoreParent;
+
+    public bool victory = false;
+
+    public UnitMode currentUnitMode;
 
     public Action OnRoundStart;
     public Action OnRoundEnd;
@@ -90,6 +101,7 @@ public class GameManager : Manager<GameManager>
     public void AddEntityToPlayerEntities(a_Champion newEntity)
     {
         playerEntities.Add(newEntity);
+        
         Debug.Log("Player entities count: " + playerEntities.Count);
     }
 
@@ -99,12 +111,24 @@ public class GameManager : Manager<GameManager>
         Debug.Log("Ennemies entities count: " + playerEntities.Count);
     }
 
+    public void SetCurrentModeAttack() {
+        currentUnitMode = UnitMode.Attack;
+        Debug.Log("Current unit mode set to Attack");
+    }
+
+    public void SetCurrentModeDefense() {
+        currentUnitMode = UnitMode.Defense;
+        Debug.Log("Current unit mode set to Defense");
+    }
+
     public void StartBattle()
     {
         // TODO : CHECK IF UNITS ARE PLACED, ELSE WARN
         if (playerEntities.Count == 0 || !playerEntities.Any(champion => champion.IsKing))
         {
             Debug.Log("Cannot start the battle without any units placed!");
+            FindObjectOfType<ToastManager>().ShowToast("No units placed !", 2.0f);
+
             return;
         }
         gameStarted = true;
@@ -124,6 +148,16 @@ public class GameManager : Manager<GameManager>
        
     }
 
+    public void ActionButtonPressed(){
+        Debug.Log("Action button pressed!");
+
+        if (victory) {
+            SceneData.LevelInt+=1;
+            Debug.Log("Loading next level: " + SceneData.LevelInt);
+        } 
+        SceneManager.LoadScene("GameScene");
+
+    }
 
     private void Update()
     {
@@ -146,6 +180,13 @@ public class GameManager : Manager<GameManager>
                 StartCoroutine(WaitAndShowDefeatPopup());
                 isCounting = false;
             }
+
+            // TODO !!!
+            // else if (!ennemyEntities.Any(champion => champion.IsKing))
+            // {
+            //     StartCoroutine(WaitAndShowVictoryPopup());
+            //     isCounting = false;
+            // }
             // Check if there are no enemy entities left
             else if (ennemyEntities.Count == 0)
             {
@@ -159,6 +200,7 @@ public class GameManager : Manager<GameManager>
     private IEnumerator WaitAndShowVictoryPopup()
     {
         yield return new WaitForSeconds(1f);
+        victory = true;
         ShowVictoryPopup();
     }
 
@@ -176,31 +218,21 @@ public class GameManager : Manager<GameManager>
             Debug.Log("Cannot reset the units during the battle!");
         } else {
             Debug.Log("Resetting the battle...");
-            // TODO : RESET UNITS POSITIONS
-            // TODO : RESET MONEY
-            // TODO : reset list of Champions and destroy them
+    
 
-             // 1) Reset unit positions (example: move them to origin)
             foreach (var champ in playerEntities)
             {
                 champ.transform.position = Vector3.zero;
             }
-            foreach (var champ in ennemyEntities)
-            {
-                champ.transform.position = Vector3.zero;
-            }
+           
 
-            // 2) Reset money
             setMoney(initialMoney); 
             moneyText.text = Money.ToString();
 
-            // 3) Destroy champions and clear lists
             foreach (var champ in playerEntities) Destroy(champ.gameObject);
             playerEntities.Clear();
-            foreach (var champ in ennemyEntities) Destroy(champ.gameObject);
-            ennemyEntities.Clear();
+           
         }
-        // OnRoundEnd?.Invoke(); ??? TODO
     }
 
     public void ShowDefeatPopup()
@@ -227,7 +259,7 @@ public class GameManager : Manager<GameManager>
         PopupTitleText.text = "Victoire!";
         string time = elapsedTime.ToString("F2");
         PopupRecapText.text = "Tous les unités ennemies ont été vaincues en " + time + " secondes!" + " Il vous reste " + playerEntities.Count + " unités.";
-          // Gather each unit's current health / total health
+
         string healthInfo = "";
         for (int i = 0; i < playerEntities.Count; i++)
         {
@@ -274,7 +306,6 @@ public class GameManager : Manager<GameManager>
 
         Popup.SetActive(false);
 
-        // Load the ChampionsDatabaseSO asset from the Resources folder
         championsDatabase = Resources.Load<ChampionsDatabaseSO>("Champions Database");
         if (championsDatabase == null)
         {

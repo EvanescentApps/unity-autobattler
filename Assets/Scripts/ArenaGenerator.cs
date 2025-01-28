@@ -4,6 +4,8 @@ using System.IO;
 using UnityEngine;
 using System;
 using Unity.AI.Navigation;
+using TMPro;
+
 using static ChampionsDatabaseSO;
 
 public class ArenaGenerator : MonoBehaviour
@@ -64,7 +66,7 @@ public class ArenaGenerator : MonoBehaviour
         public Arena[] arenas;
     }
 
-    [SerializeField] public int arenaIndex = 1;
+    [SerializeField] public int arenaIndex;
 
     private GameManager gameManager;
 
@@ -75,6 +77,9 @@ public class ArenaGenerator : MonoBehaviour
     public GameObject holeTilePrefab;
     public GameObject sandTilePrefab;
     public GameObject classicTilePrefab;
+
+    [SerializeField] public TextMeshProUGUI levelText;
+
     public string jsonFileName = "arenas.json";
 
     private Dictionary<int, GameObject> prefabMapping;
@@ -84,6 +89,10 @@ public class ArenaGenerator : MonoBehaviour
 
 
         gameManager = GameManager.Instance;
+        arenaIndex = SceneData.LevelInt;
+        Debug.Log("Current level: " + arenaIndex);
+
+        levelText.text = "Level " + (arenaIndex + 1);
 
         // Préparation des correspondances
         prefabMapping = new Dictionary<int, GameObject>
