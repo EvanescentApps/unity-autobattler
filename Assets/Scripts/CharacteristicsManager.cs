@@ -57,6 +57,17 @@ public class CharacteristicsManager : MonoBehaviour{
         characterImage.sprite = image;
     }
 
+    // Compétences:
+    // Barbare: Charge + attaque amplifiée
+    // Chevalier: Bouclier pendant X sec
+    // Archer: Attaque à distance ?
+    // Magicien: Attaque de zone avec explosion de particules
+    // Robinhood: Attaque à distance amplifiée mais moins souvent
+
+    // SAID Dupliquera la barre de vie : en violet, qui se recharge en fonction des dégâts infligés
+
+    // BRILLE EN BLEU ET UN PEU PLUS GRAND PENDANT LA SKILL
+
     public void DisplayCharacteristics(float maxHealth, float armor, float cooldown, float range, float damage, float speed, string capacityDescription, string capacityName, int price){
         
         characteristicsText.text = $"<b>Vitesse:</b> {speed} uu/s\n" +

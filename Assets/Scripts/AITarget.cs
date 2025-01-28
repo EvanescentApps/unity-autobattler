@@ -10,9 +10,11 @@ public class AITarget : MonoBehaviour
     private NavMeshAgent m_Agent;
     private float m_Distance;
     private Transform m_CurrentTarget;
+    
     protected bool attackReady;
     private a_Champion m_CurrentOpponent;
 
+    private Animator animator;
 
     private float m_NextTargetUpdateTime;
     public float TargetUpdateInterval = 0.01f;
@@ -20,6 +22,8 @@ public class AITarget : MonoBehaviour
 
     void Start()
     {
+        animator = GetComponent<Animator>();
+
         m_Agent = GetComponent<NavMeshAgent>();
         champion = GetComponent<a_Champion>();
         AttackDistance = champion.Attack.Distance;
@@ -80,6 +84,11 @@ public class AITarget : MonoBehaviour
 
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Space)) // Replace with your desired input
+        {
+            animator.SetTrigger("Attack");
+        }
+
         if (GameManager.Instance.IsGameStarted)
         {
             // Periodically update the nearest target
@@ -95,26 +104,43 @@ public class AITarget : MonoBehaviour
                 if (m_Agent.isOnNavMesh)
                 {
                     m_Agent.isStopped = true;
+                    animator.SetBool("isMoving", false);
                 }
                 return;
             }
 
             // Continuously update the agent's destination
             m_Distance = Vector3.Distance(transform.position, m_CurrentTarget.position);
-            if (m_Distance < AttackDistance * 0.6)
+            if (m_Distance < AttackDistance * 0.75)
             {
                 if (m_Agent.isOnNavMesh)
                 {
-                    Debug.Log($"Arrived at target. My Health: {champion.Health.CurrentHealth} Opponent Health: {m_CurrentOpponent.Health.CurrentHealth}");
+                    //Debug.Log($"Arrived at target. My Health: {champion.Health.CurrentHealth} Opponent Health: {m_CurrentOpponent.Health.CurrentHealth}");
                     m_Agent.isStopped = true;
+                    animator.SetBool("isMoving", false);
+
+                    Vector3 directionTowardsOpponent = m_CurrentOpponent.transform.position - transform.position;
+                    directionTowardsOpponent.y = 0f;
+                    Quaternion targetRotation = Quaternion.LookRotation(directionTowardsOpponent);
+                    float rotationSpeed = 5f;
+                    transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+
                     if (m_CurrentOpponent != null)
                     {
                         if (attackReady)
                         {
+                            // ATTACKING
+                            animator.SetTrigger("Attack");
+
                             m_CurrentOpponent.TakeDamage(champion.Attack.Damage);
                             Debug.Log($"Dealt {champion.Attack.Damage} damage to the opponent. Opponent's remaining health: {m_CurrentOpponent.Health.CurrentHealth}");
+                            
+                            // TODO SAID Fill mana when receiving damage or giving damage
+
                             StartCoroutine(AttackCooldownRoutine(champion.Attack.Cooldown));
                         }
+
+                        // TODO SAID: If MANA FULL : attack with special attack
                     }
                 }
             }
@@ -123,6 +149,8 @@ public class AITarget : MonoBehaviour
                 if (m_Agent.isOnNavMesh)
                 {
                     m_Agent.isStopped = false;
+                    animator.SetBool("isMoving", true);
+
                     m_Agent.SetDestination(m_CurrentTarget.position);
                 }
 
