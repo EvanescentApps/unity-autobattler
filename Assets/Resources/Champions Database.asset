@@ -133,3 +133,18 @@ MonoBehaviour:
       damage: 6
     movementStats:
       speed: 7
+  - prefab: {fileID: 2803820806472684270, guid: fcc7e72ef9922724c9dbe91fe1141293, type: 3}
+    description: Skeleton
+    icon: {fileID: 0}
+    entityStats:
+      name: Skeleton
+      price: 26
+    healthStats:
+      maxHealth: 40
+      armor: 2
+    attackStats:
+      cooldown: 3
+      range: 3
+      damage: 6
+    movementStats:
+      speed: 7

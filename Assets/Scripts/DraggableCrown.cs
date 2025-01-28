@@ -175,11 +175,7 @@ public class DraggableCrown : MonoBehaviour
 
     private void Update()
     {
-        if (isDragging)
-        {
-            transform.Rotate(Vector3.up, 90f * Time.deltaTime);
-        }
-        else if (currentKing != null)
+        if (currentKing != null)
         {
             transform.position = currentKing.transform.position + Vector3.up * hoverHeight;
         }

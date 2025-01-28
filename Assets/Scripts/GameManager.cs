@@ -102,7 +102,7 @@ public class GameManager : Manager<GameManager>
     public void StartBattle()
     {
         // TODO : CHECK IF UNITS ARE PLACED, ELSE WARN
-        if (playerEntities.Count == 0)
+        if (playerEntities.Count == 0 || !playerEntities.Any(champion => champion.IsKing))
         {
             Debug.Log("Cannot start the battle without any units placed!");
             return;
