@@ -7,7 +7,7 @@ public class DraggableCrown : MonoBehaviour
     private Camera mainCamera;
     private a_Champion currentKing;
     [SerializeField] private float hoverHeight = 1.5f;
-    [SerializeField] private float dragHeight = 1.5f; // Height at which crown moves while dragging
+    [SerializeField] private float dragHeight = 1.5f;
 
     private GameObject lastHoveredUnit;
     private Vector3 originalScale;
@@ -15,7 +15,8 @@ public class DraggableCrown : MonoBehaviour
     private Material lastHoveredMaterial;
     [SerializeField] private Color hoverColor = new Color(1f, 0.8f, 0f, 1f);
     [SerializeField] private float hoverScaleMultiplier = 1.2f;
-    [SerializeField] private float raycastHeight = 1f;
+    [SerializeField] private float raycastDistance = 2f; // Increased detection distance
+    [SerializeField] private float raycastRadius = 0.5f; // Added radius for spherecast
 
     private void Start()
     {
@@ -32,11 +33,10 @@ public class DraggableCrown : MonoBehaviour
             currentKing = null;
         }
 
-        // Calculate offset but maintain constant height
         Vector3 mousePos = GetMouseWorldPosition();
-        mousePos.y = dragHeight; // Force constant height
+        mousePos.y = dragHeight;
         offset = transform.position - mousePos;
-        offset.y = 0; // Ignore vertical offset
+        offset.y = 0;
     }
 
     private void OnMouseDrag()
@@ -49,8 +49,9 @@ public class DraggableCrown : MonoBehaviour
 
             transform.position = targetPos;
 
+            // Using SphereCast instead of Raycast for better detection
             RaycastHit hit;
-            if (Physics.Raycast(transform.position + Vector3.up * raycastHeight, Vector3.down, out hit, raycastHeight * 2f))
+            if (Physics.SphereCast(transform.position, raycastRadius, Vector3.down, out hit, raycastDistance))
             {
                 if (hit.collider.CompareTag("Player"))
                 {
@@ -70,7 +71,28 @@ public class DraggableCrown : MonoBehaviour
             }
             else
             {
-                RemoveHoverEffect();
+                // Fallback to OverlapSphere if SphereCast fails
+                Collider[] hitColliders = Physics.OverlapSphere(transform.position, raycastRadius);
+                bool foundPlayer = false;
+                foreach (var hitCollider in hitColliders)
+                {
+                    if (hitCollider.CompareTag("Player"))
+                    {
+                        GameObject hoveredUnit = hitCollider.gameObject;
+                        if (hoveredUnit != lastHoveredUnit)
+                        {
+                            RemoveHoverEffect();
+                            ApplyHoverEffect(hoveredUnit);
+                            lastHoveredUnit = hoveredUnit;
+                        }
+                        foundPlayer = true;
+                        break;
+                    }
+                }
+                if (!foundPlayer)
+                {
+                    RemoveHoverEffect();
+                }
             }
         }
     }
@@ -80,12 +102,13 @@ public class DraggableCrown : MonoBehaviour
         isDragging = false;
         RemoveHoverEffect();
 
-        RaycastHit hit;
-        if (Physics.Raycast(transform.position + Vector3.up * raycastHeight, Vector3.down, out hit, raycastHeight * 2f))
+        // Using OverlapSphere for more reliable detection when dropping the crown
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, raycastRadius);
+        foreach (var hitCollider in hitColliders)
         {
-            if (hit.collider.CompareTag("Player"))
+            if (hitCollider.CompareTag("Player"))
             {
-                a_Champion champion = hit.collider.GetComponent<a_Champion>();
+                a_Champion champion = hitCollider.GetComponent<a_Champion>();
                 if (champion != null)
                 {
                     if (currentKing != null && currentKing != champion)
@@ -95,9 +118,10 @@ public class DraggableCrown : MonoBehaviour
 
                     currentKing = champion;
                     champion.SetKingStatus(true);
-
+                    Debug.Log($"The champion {champion.Entity.name} becomes the king");
                     Vector3 newPos = champion.transform.position + Vector3.up * hoverHeight;
                     transform.position = newPos;
+                    break;
                 }
             }
         }
@@ -114,7 +138,7 @@ public class DraggableCrown : MonoBehaviour
             return ray.GetPoint(enter);
         }
 
-        return transform.position; // Fallback to current position if raycast fails
+        return transform.position;
     }
 
     private void ApplyHoverEffect(GameObject unit)
@@ -154,6 +178,10 @@ public class DraggableCrown : MonoBehaviour
         if (isDragging)
         {
             transform.Rotate(Vector3.up, 90f * Time.deltaTime);
+        }
+        else if (currentKing != null)
+        {
+            transform.position = currentKing.transform.position + Vector3.up * hoverHeight;
         }
     }
 

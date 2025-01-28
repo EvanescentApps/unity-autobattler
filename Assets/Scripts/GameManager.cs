@@ -6,6 +6,7 @@ using static ChampionsDatabaseSO;
 
 using TMPro;
 using UnityEngine.UI;
+using System.Linq;
 
 public class GameManager : Manager<GameManager>
 {
@@ -132,12 +133,20 @@ public class GameManager : Manager<GameManager>
             TimerText.text = $"Time: {elapsedTime:F2}";
             PlayersAliveText.text = $"Players alive: {playerEntities.Count}";
             EnnemiesAliveText.text = $"Ennemies alive: {ennemyEntities.Count}";
+
+            // Check if there are no player entities left
             if (playerEntities.Count == 0)
             {
                 StartCoroutine(WaitAndShowDefeatPopup());
-
                 isCounting = false;
             }
+            // Check if there are no champions with IsKing == true
+            else if (!playerEntities.Any(champion => champion.IsKing))
+            {
+                StartCoroutine(WaitAndShowDefeatPopup());
+                isCounting = false;
+            }
+            // Check if there are no enemy entities left
             else if (ennemyEntities.Count == 0)
             {
                 StartCoroutine(WaitAndShowVictoryPopup());
@@ -145,6 +154,7 @@ public class GameManager : Manager<GameManager>
             }
         }
     }
+
 
     private IEnumerator WaitAndShowVictoryPopup()
     {
@@ -197,7 +207,7 @@ public class GameManager : Manager<GameManager>
     {
         PopupTitleText.text = "Défaite!";
         string time = elapsedTime.ToString("F2");
-        PopupRecapText.text = "Toutes vos unités ont été vaincues en " + time + " secondes :(";
+        PopupRecapText.text = "Vous avez perdu en " + time + " secondes :(";
         string healthInfo = "";
         for (int i = 0; i < ennemyEntities.Count; i++)
         {
