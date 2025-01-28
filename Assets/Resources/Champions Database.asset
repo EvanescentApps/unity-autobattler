@@ -88,3 +88,48 @@ MonoBehaviour:
       damage: 6
     movementStats:
       speed: 7
+  - prefab: {fileID: 1755563827031769424, guid: 4c7e00e2a6ed69e4781643af02f9335e, type: 3}
+    description: Skeleton_mage
+    icon: {fileID: 21300000, guid: b61b12f1cd95b910ab92cafc1e7da742, type: 3}
+    entityStats:
+      name: Skeleton_mage
+      price: 26
+    healthStats:
+      maxHealth: 40
+      armor: 2
+    attackStats:
+      cooldown: 3
+      range: 3
+      damage: 6
+    movementStats:
+      speed: 7
+  - prefab: {fileID: 3227698834315246913, guid: fee0c8cd54cb3af6ea392f510b03f514, type: 3}
+    description: Skeleton_rogue
+    icon: {fileID: 21300000, guid: ce092c6315a7c4debbf730345ed6431b, type: 3}
+    entityStats:
+      name: Skeleton_rogue
+      price: 26
+    healthStats:
+      maxHealth: 40
+      armor: 2
+    attackStats:
+      cooldown: 3
+      range: 3
+      damage: 6
+    movementStats:
+      speed: 7
+  - prefab: {fileID: 1599145578581750125, guid: d8dcd8fbeba5cdb6d9e1adfaecebc861, type: 3}
+    description: Skeleton_warrior
+    icon: {fileID: 21300000, guid: fdec3539610b34d12aae5e54ebcfca75, type: 3}
+    entityStats:
+      name: Skeleton_warrior
+      price: 26
+    healthStats:
+      maxHealth: 40
+      armor: 2
+    attackStats:
+      cooldown: 3
+      range: 3
+      damage: 6
+    movementStats:
+      speed: 7

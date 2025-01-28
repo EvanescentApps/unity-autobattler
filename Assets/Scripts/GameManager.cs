@@ -39,7 +39,6 @@ public class GameManager : Manager<GameManager>
 
     [SerializeField] public Transform unitStoreParent;
 
-
     public Action OnRoundStart;
     public Action OnRoundEnd;
     public Action<a_Champion> OnUnitDied;
@@ -117,11 +116,13 @@ public class GameManager : Manager<GameManager>
         TimerText.gameObject.SetActive(true);
         PlayersAliveText.gameObject.SetActive(true);
         EnnemiesAliveText.gameObject.SetActive(true);
+        unitStoreParent.gameObject.SetActive(false);
 
         isCounting = true;
         elapsedTime = 0f;
        
     }
+
 
     private void Update()
     {
@@ -133,16 +134,30 @@ public class GameManager : Manager<GameManager>
             EnnemiesAliveText.text = $"Ennemies alive: {ennemyEntities.Count}";
             if (playerEntities.Count == 0)
             {
-                ShowDefeatPopup();
+                StartCoroutine(WaitAndShowDefeatPopup());
+
                 isCounting = false;
             }
             else if (ennemyEntities.Count == 0)
             {
-                ShowVictoryPopup();
+                StartCoroutine(WaitAndShowVictoryPopup());
                 isCounting = false;
             }
         }
     }
+
+    private IEnumerator WaitAndShowVictoryPopup()
+    {
+        yield return new WaitForSeconds(1f);
+        ShowVictoryPopup();
+    }
+
+    private IEnumerator WaitAndShowDefeatPopup()
+    {
+        yield return new WaitForSeconds(1f);
+        ShowDefeatPopup();
+    }
+
 
     public void ResetBattle()
     {
@@ -184,7 +199,7 @@ public class GameManager : Manager<GameManager>
         string time = elapsedTime.ToString("F2");
         PopupRecapText.text = "Toutes vos unités ont été vaincues en " + time + " secondes :(";
         string healthInfo = "";
-        for (int i = 0; i < playerEntities.Count; i++)
+        for (int i = 0; i < ennemyEntities.Count; i++)
         {
             var champ = ennemyEntities[i];
             healthInfo += $"{champ.name}: {champ.Health.CurrentHealth}/{champ.Health.maxHealth}";
@@ -227,7 +242,7 @@ public class GameManager : Manager<GameManager>
         ennemyEntities.Add(newEntity);
     }
 
-    Dictionary<string, float> championPositions = new Dictionary<string, float>
+    Dictionary<string, float> firstRowChampionPositions = new Dictionary<string, float>
         {
             { "Barbare", 7.5f },
             { "Magicien", 5.0f },
@@ -236,9 +251,17 @@ public class GameManager : Manager<GameManager>
             { "Robinhood", -2.5f },
         };
 
+    Dictionary<string, float> secondRowChampionPositions = new Dictionary<string, float>
+        {
+            { "Skeleton_mage", 7.5f },
+            { "Skeleton_rogue", 5.0f },
+            { "Skeleton_warrior", 2.5f }
+        };
 
     private void Start()
     {
+        unitStoreParent.gameObject.SetActive(true);
+
         Popup.SetActive(false);
 
         // Load the ChampionsDatabaseSO asset from the Resources folder
@@ -250,13 +273,22 @@ public class GameManager : Manager<GameManager>
         }
 
         Debug.Log("GameManager loaded!");
-        foreach (var champion in championPositions)
+        foreach (var champion in firstRowChampionPositions)
         {
             Vector3 spawnPosition = new Vector3(champion.Value, 0f, 13f);
             Debug.Log("Spawning champion: " + champion.Key + " at position: " + spawnPosition);
             a_Champion c = championsDatabase.SpawnChampion(champion.Key, spawnPosition, champion.Key);
             c.gameObject.transform.SetParent(unitStoreParent.transform);
         }
+
+        foreach (var champion in secondRowChampionPositions)
+        {
+            Vector3 spawnPosition = new Vector3(champion.Value, 0f, 15f);
+            Debug.Log("Spawning champion: " + champion.Key + " at position: " + spawnPosition);
+            a_Champion c = championsDatabase.SpawnChampion(champion.Key, spawnPosition, champion.Key);
+            c.gameObject.transform.SetParent(unitStoreParent.transform);
+        }
+
 
         setMoney(initialMoney);
         moneyText.text = Money.ToString();
@@ -274,9 +306,13 @@ public class GameManager : Manager<GameManager>
 
     public void RespawnEntityInStore(string entityName)
 {
-    if (championPositions.TryGetValue(entityName, out float x))
+    if (firstRowChampionPositions.TryGetValue(entityName, out float x))
     {
         Vector3 spawnPosition = new Vector3(x, 0f, 13f);
+        a_Champion c = championsDatabase.SpawnChampion(entityName, spawnPosition, entityName);
+        c.gameObject.transform.SetParent(unitStoreParent.transform);
+    } else if (secondRowChampionPositions.TryGetValue(entityName, out float x2)){
+        Vector3 spawnPosition = new Vector3(x2, 0f, 15f);
         a_Champion c = championsDatabase.SpawnChampion(entityName, spawnPosition, entityName);
         c.gameObject.transform.SetParent(unitStoreParent.transform);
     }

@@ -41,7 +41,7 @@ public class CharacterMovement : MonoBehaviour
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 10f);
 
             // Trigger movement animation
-             animator.SetTrigger("MovingTrigger");
+            animator.SetTrigger("MovingTrigger");
             animator.SetBool("isMoving", true);
         }
         else
