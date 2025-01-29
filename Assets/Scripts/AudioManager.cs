@@ -26,10 +26,17 @@ public class AudioManager : MonoBehaviour
 
     private void Start()
     {
-        SFXSource.volume = Mathf.Clamp01(0.08f);
+      
+        try
+        {
+  SFXSource.volume = Mathf.Clamp01(0.08f);
         musicSource.volume = Mathf.Clamp(musicSource.volume, 0f, 0.5f); 
         musicSource.clip = musicClip;
-        musicSource.Play();
+        musicSource.Play();        }
+        catch (System.Exception e)
+        {
+            Debug.LogError("Error: " + e.Message);
+        }
     }
 
     public void PlaySFX(AudioClip clip)
@@ -39,16 +46,38 @@ public class AudioManager : MonoBehaviour
 
     public void PlayAttack()
     {
-        SFXSource.PlayOneShot(attackClip);
+        try
+        {
+            SFXSource.PlayOneShot(attackClip);
+        }
+        catch (System.Exception e)
+        {
+            Debug.LogError("Error: " + e.Message);
+        }
+    
     }
 
     public void PlaySelect()
     {
-        SFXSource.PlayOneShot(selectClip, 0.1f);
+         try
+        {
+                SFXSource.PlayOneShot(selectClip, 0.1f);        }
+        catch (System.Exception e)
+        {
+            Debug.LogError("Error: " + e.Message);
+        }
+       
     }
 
     public void PlayHurt()
     {
-        SFXSource.PlayOneShot(hurtClip, 0.2f);
+         try
+        {
+                      SFXSource.PlayOneShot(hurtClip, 0.2f);
+      }
+        catch (System.Exception e)
+        {
+            Debug.LogError("Error: " + e.Message);
+        }
     }
 }
