@@ -41,7 +41,7 @@ public class ArenaGenerator : MonoBehaviour
             for (int i = 0; i < pairs.Length; i++)
             {
                 string[] values = pairs[i].Split(',');
-                if (values.Length != 3)
+                if (values.Length != 5)
                 {
                     Debug.LogError("Invalid enemy coordinate format: " + pairs[i]);
                     continue;
