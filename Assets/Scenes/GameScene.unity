@@ -688,56 +688,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 318533112}
   m_CullTransparentMesh: 1
---- !u!1 &351525408
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 351525410}
-  - component: {fileID: 351525409}
-  m_Layer: 0
-  m_Name: AudioManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &351525409
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 351525408}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cecd63c5c6d11834ca549143401d2f13, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  musicSource: {fileID: 0}
-  SFXSource: {fileID: 0}
-  musicClip: {fileID: 8300000, guid: ea7383a38508d114baad2872ee727d55, type: 3}
-  selectClip: {fileID: 8300000, guid: e5f0bf0bfcecec9448c987a66a04e367, type: 3}
-  attackClip: {fileID: 8300000, guid: d028d922579b6014a82c6612b0a1d9a5, type: 3}
-  hurtClip: {fileID: 8300000, guid: 62a3ba1e712156241ba4e2a2c036b3fd, type: 3}
---- !u!4 &351525410
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 351525408}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 532.9113, y: 252.14452, z: 388.65228}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &359096717
 GameObject:
   m_ObjectHideFlags: 0
@@ -13573,4 +13523,3 @@ SceneRoots:
   - {fileID: 140859030}
   - {fileID: 1654669120}
   - {fileID: 1155409107}
-  - {fileID: 351525410}
