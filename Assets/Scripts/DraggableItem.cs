@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class DraggableItem : MonoBehaviour
@@ -20,6 +22,15 @@ public class DraggableItem : MonoBehaviour
 
     [SerializeField] private GameObject haloEffectPrefab;
 
+    [System.Serializable]
+    public class ItemUpgrade
+    {
+        public string attributeName;  
+        public int upgradeLevel;     
+        public int price;
+    }
+
+    [SerializeField] private List<ItemUpgrade> itemAttributes = new List<ItemUpgrade>();
     private void Start()
     {
         mainCamera = Camera.main;
@@ -80,12 +91,19 @@ public class DraggableItem : MonoBehaviour
                 a_Champion champion = hit.GetComponent<a_Champion>();
                 if (champion != null)
                 {
-                    UpgradeChampion(champion);
-                    AddHaloEffect(hit.gameObject);
-                    appliedToChampion = true;
+                    // Créer et ajouter l'item
+                    a_Item newItem = new BasicItem(champion.Entity, itemAttributes);
+                    int totalPrice = itemAttributes.Sum(item => item.price);
+                    if (GameManager.Instance.CanAfford(totalPrice))
+                    {
+                        champion.Items.Add(newItem);
+                        newItem.RunUpgrades(champion);
+                        GameManager.Instance.SpendMoney(totalPrice);
+                        AddHaloEffect(hit.gameObject);
+                        appliedToChampion = true;
 
-                    // Log that the item was applied to the champion
-                    Debug.Log($"Item was successfully applied to the champion: {champion.Entity.name}");
+                        Debug.Log($"Item with {itemAttributes.Count} upgrades applied to {champion.Entity.name}");
+                    }
                 }
             }
         }
@@ -103,7 +121,7 @@ public class DraggableItem : MonoBehaviour
 
     private void UpgradeChampion(a_Champion champion)
     {
-        foreach (var item in champion.Items) item.RunUpgrades();
+        foreach (var item in champion.Items) item.RunUpgrades(champion);
     }
 
     private void ApplyHoverEffect(GameObject unit)

@@ -25,6 +25,8 @@ public class GameManager : Manager<GameManager>
 
     [SerializeField] public GameObject storePanel;
     [SerializeField] public GameObject UnitInfos;
+    [SerializeField] public GameObject ItemsDescription;
+    [SerializeField] public GameObject ItemsObjects;
 
     [SerializeField] public TextMeshProUGUI TimerText;
     [SerializeField] public TextMeshProUGUI PlayersAliveText;
@@ -138,6 +140,8 @@ public class GameManager : Manager<GameManager>
         resetButton.gameObject.SetActive(false);
         storePanel.SetActive(false);
         UnitInfos.SetActive(false);
+        ItemsDescription.SetActive(false);
+        ItemsObjects.SetActive(false);
         TimerText.gameObject.SetActive(true);
         PlayersAliveText.gameObject.SetActive(true);
         EnnemiesAliveText.gameObject.SetActive(true);

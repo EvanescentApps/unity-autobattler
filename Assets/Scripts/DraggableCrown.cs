@@ -47,7 +47,7 @@ public class DraggableCrown : MonoBehaviour
             targetPos.y = dragHeight;
             targetPos += offset;
 
-            transform.position = targetPos;
+            transform.position = targetPos; 
 
             // Using SphereCast instead of Raycast for better detection
             RaycastHit hit;
