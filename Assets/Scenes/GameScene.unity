@@ -5800,6 +5800,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   championsDatabase: {fileID: 11400000, guid: 8e733be950ffb48439ea937661b082fb, type: 2}
   moneyText: {fileID: 4504891295567428653}
+  CrownPrefab: {fileID: 1589798012172671861, guid: 5e312e92af1f0b840b5abc60f1c5a042, type: 3}
   startButton: {fileID: 971947866}
   resetButton: {fileID: 641341803}
   storePanel: {fileID: 639205309}
