@@ -137,8 +137,11 @@ public class AITarget : MonoBehaviour
 
                             m_CurrentOpponent.TakeDamage(champion.Attack.Damage);
                             Debug.Log($"Dealt {champion.Attack.Damage} damage to the opponent. Opponent's remaining health: {m_CurrentOpponent.Health.CurrentHealth}");
-                            
+
                             // TODO SAID Fill mana when receiving damage or giving damage
+
+                            AudioManager.Instance.PlayAttack();
+                            AudioManager.Instance.PlayHurt();
 
                             StartCoroutine(AttackCooldownRoutine(champion.Attack.Cooldown));
                         }

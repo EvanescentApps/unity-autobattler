@@ -40,6 +40,7 @@ public class DraggableItem : MonoBehaviour
     private void OnMouseDown()
     {
         isDragging = true;
+        AudioManager.Instance.PlaySelect();
         Vector3 mousePos = GetMouseWorldPosition();
         mousePos.y = dragHeight;
         offset = transform.position - mousePos;
@@ -101,7 +102,7 @@ public class DraggableItem : MonoBehaviour
                         GameManager.Instance.SpendMoney(totalPrice);
                         AddHaloEffect(hit.gameObject);
                         appliedToChampion = true;
-
+                        AudioManager.Instance.PlaySelect();
                         Debug.Log($"Item with {itemAttributes.Count} upgrades applied to {champion.Entity.name}");
                     }
                 }

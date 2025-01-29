@@ -84,10 +84,11 @@ public class DragNDrop : MonoBehaviour
             else // picking up
             {
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
                 if (Physics.Raycast(ray, out RaycastHit hit) && hit.transform == transform)
                 {
                     StartDragging(hit);
-
+                    AudioManager.Instance.PlaySelect();
                 }
                 else
                 {
@@ -319,6 +320,7 @@ public class DragNDrop : MonoBehaviour
                         if (GameManager.Instance.CanAfford(championData.entityStats.price))
                         {
                             PurchaseChampionAndActivate(championType);
+                            AudioManager.Instance.PlaySelect();
                         }
                         else
                         {
