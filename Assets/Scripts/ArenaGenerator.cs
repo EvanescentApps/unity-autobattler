@@ -40,6 +40,7 @@ public class ArenaGenerator : MonoBehaviour
             var coordinates = new (int enemyType, Vector2Int position)[pairs.Length];
             for (int i = 0; i < pairs.Length; i++)
             {
+                Debug.Log("Pair: " + pairs[i]);
                 string[] values = pairs[i].Split(',');
                 if (values.Length != 5)
                 {
@@ -140,7 +141,7 @@ public class ArenaGenerator : MonoBehaviour
         }
     }
 
-    void GenerateEnnemy(int enemyType, Vector3 position)
+    void GenerateEnnemy(int enemyType, Vector3 position, bool isKing, bool isDefending)
     {
         Debug.Log("Generating enemy of type " + enemyType + " at position " + position);
         // Load the prefab from the Resources folder
