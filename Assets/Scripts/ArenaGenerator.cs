@@ -150,8 +150,6 @@ public class ArenaGenerator : MonoBehaviour
 
     void Start()
     {
-
-
         gameManager = GameManager.Instance;
         arenaIndex = SceneData.LevelInt;
         Debug.Log("Current level: " + arenaIndex);
@@ -279,12 +277,11 @@ public class ArenaGenerator : MonoBehaviour
         var enemyCoordinates = arena.GetEnemyCoordinates();
         if (enemyCoordinates != null)
         {
-            foreach (var (enemyType, position) in enemyCoordinates)
+            foreach (var (enemyType, position, isKing, isDefending) in enemyCoordinates)
             {
                 if (position != null)
                 {
-                    bool isDefending = false;
-                    bool isKing = false;
+                   
                     GenerateEnnemy(enemyType, new Vector3(position.x * 2 - 9f, 0, position.y * 2 - 9f), isKing, isDefending);
                 }
                 else
