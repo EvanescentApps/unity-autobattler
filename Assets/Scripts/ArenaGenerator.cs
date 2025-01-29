@@ -252,8 +252,8 @@ public class ArenaGenerator : MonoBehaviour
             if (isKing)
             {
                 newEnnemy.SetKingStatus(true);
-                GameObject crown = Instantiate(newEnnemy.crownPrefab, newEnnemy.transform);
-                crown.transform.localPosition = new Vector3(0, 0.5f, 0);
+                GameObject crown = Instantiate(GameManager.Instance.CrownPrefab, newEnnemy.transform);
+                crown.transform.localPosition = new Vector3(0, 2.5f, 0);
             }
             //newEnnemy.gameObject.layer = LayerMask.NameToLayer("HideNavMesh");
             if (isDefending)
