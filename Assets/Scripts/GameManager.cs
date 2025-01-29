@@ -20,6 +20,8 @@ public class GameManager : Manager<GameManager>
     [SerializeField] public ChampionsDatabaseSO championsDatabase;
     [SerializeField] private TextMeshProUGUI moneyText;
 
+    [SerializeField] public GameObject CrownPrefab; 
+
     [SerializeField] public Button startButton;
     [SerializeField] public Button resetButton;
 
@@ -192,7 +194,7 @@ public class GameManager : Manager<GameManager>
             //     isCounting = false;
             // }
             // Check if there are no enemy entities left
-            else if (ennemyEntities.Count == 0)
+            else if (ennemyEntities.Count == 0 || !ennemyEntities.Any(champion => champion.IsKing))
             {
                 StartCoroutine(WaitAndShowVictoryPopup());
                 isCounting = false;
