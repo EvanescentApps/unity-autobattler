@@ -251,7 +251,8 @@ public class GameManager : Manager<GameManager>
             healthInfo += $"{champ.name}: {champ.Health.CurrentHealth}/{champ.Health.maxHealth}";
             if (i < ennemyEntities.Count - 1) healthInfo += ", ";
         }
-
+        ennemyEntities.Clear();
+        playerEntities.Clear();
         PopupDamageRecapText.text = "Santé des ennemis restants: " + healthInfo;
         PopupActionButtonText.text = "Retenter";
         Popup.SetActive(true);

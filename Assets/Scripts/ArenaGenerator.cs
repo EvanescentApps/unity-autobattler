@@ -185,6 +185,12 @@ public class ArenaGenerator : MonoBehaviour
         if (prefab != null)
         {
             a_Champion newEnnemy = gameManager.championsDatabase.SpawnChampion(enemyName, position, entityId , true);
+            if (isKing)
+            {
+                newEnnemy.SetKingStatus(true);
+                GameObject crown = Instantiate(newEnnemy.crownPrefab, newEnnemy.transform);
+                crown.transform.localPosition = new Vector3(0, 0.5f, 0);
+            }
             //newEnnemy.gameObject.layer = LayerMask.NameToLayer("HideNavMesh");
             gameManager.AddEntityToEnnemyEntities(newEnnemy);
             newEnnemy.transform.SetParent(GameManager.Instance.team2Parent.transform);
