@@ -29,35 +29,98 @@ public class ArenaGenerator : MonoBehaviour
             return layoutArray;
         }
 
-        public (int enemyType, Vector2Int position)[] GetEnemyCoordinates()
+        // public (int enemyType, Vector2Int position, bool isKing, bool isDefending)[] GetEnemyCoordinates()
+        // {
+        //     if (string.IsNullOrEmpty(enemyCoord))
+        //     {
+        //         return null;
+        //     }
+
+        //     string[] pairs = enemyCoord.Split(';');
+        //     var coordinates = new (int enemyType, Vector2Int position, bool isKing, bool isDefending)[pairs.Length];
+        //     for (int i = 0; i < pairs.Length; i++)
+        //     {
+        //         Debug.Log("Pair: " + pairs[i]);
+        //         string[] values = pairs[i].Split(',');
+        //         if (values.Length != 5)
+        //         {
+        //             Debug.LogError("Invalid enemy coordinate format: " + pairs[i]);
+        //             continue;
+        //         }
+
+        //         if (int.TryParse(values[0], out int enemyType) && int.TryParse(values[1], out int x) && int.TryParse(values[2], out int y)&& bool.TryParse(values[3], out bool isKing) && bool.TryParse(values[4], out bool isDefending))
+        //         {
+        //             coordinates[i] = (enemyType, new Vector2Int(x, y), isKing, isDefending);
+        //         }
+        //         else
+        //         {
+        //             Debug.LogError("Invalid enemy coordinate values: " + pairs[i]);
+        //         }
+        //     }
+        //     return coordinates;
+        // }
+
+        public (int enemyType, Vector2Int position, bool isKing, bool isDefending)[] GetEnemyCoordinates()
         {
-            if (string.IsNullOrEmpty(enemyCoord))
+            if (string.IsNullOrWhiteSpace(enemyCoord))
             {
-                return null;
+                return Array.Empty<(int, Vector2Int, bool, bool)>();
             }
 
-            string[] pairs = enemyCoord.Split(';');
-            var coordinates = new (int enemyType, Vector2Int position)[pairs.Length];
+            var coordinates = new List<(int, Vector2Int, bool, bool)>();
+            string[] pairs = enemyCoord.Split(';', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+            List<string> errors = new();
+
             for (int i = 0; i < pairs.Length; i++)
             {
-                Debug.Log("Pair: " + pairs[i]);
-                string[] values = pairs[i].Split(',');
+                string pair = pairs[i];
+                string[] values = pair.Split(',');
+
                 if (values.Length != 5)
                 {
-                    Debug.LogError("Invalid enemy coordinate format: " + pairs[i]);
+                    errors.Add($"Pair {i}: Expected 5 values, got {values.Length} - '{pair}'");
                     continue;
                 }
 
-                if (int.TryParse(values[0], out int enemyType) && int.TryParse(values[1], out int x) && int.TryParse(values[2], out int y))
+                if (!int.TryParse(values[0], out int enemyType))
                 {
-                    coordinates[i] = (enemyType, new Vector2Int(x, y));
+                    errors.Add($"Pair {i}: Invalid enemy type '{values[0]}'");
+                    continue;
                 }
-                else
+
+                if (!int.TryParse(values[1], out int x))
                 {
-                    Debug.LogError("Invalid enemy coordinate values: " + pairs[i]);
+                    errors.Add($"Pair {i}: Invalid X coordinate '{values[1]}'");
+                    continue;
                 }
+
+                if (!int.TryParse(values[2], out int y))
+                {
+                    errors.Add($"Pair {i}: Invalid Y coordinate '{values[2]}'");
+                    continue;
+                }
+
+                if (!bool.TryParse(values[3], out bool isKing))
+                {
+                    errors.Add($"Pair {i}: Invalid king flag '{values[3]}'");
+                    continue;
+                }
+
+                if (!bool.TryParse(values[4], out bool isDefending))
+                {
+                    errors.Add($"Pair {i}: Invalid defending flag '{values[4]}'");
+                    continue;
+                }
+
+                coordinates.Add((enemyType, new Vector2Int(x, y), isKing, isDefending));
             }
-            return coordinates;
+
+            if (errors.Count > 0)
+            {
+                Debug.LogError($"Enemy coordinate parsing errors:\n{string.Join("\n", errors)}");
+            }
+
+            return coordinates.ToArray();
         }
     }
 
@@ -87,8 +150,6 @@ public class ArenaGenerator : MonoBehaviour
 
     void Start()
     {
-
-
         gameManager = GameManager.Instance;
         arenaIndex = SceneData.LevelInt;
         Debug.Log("Current level: " + arenaIndex);
@@ -192,6 +253,10 @@ public class ArenaGenerator : MonoBehaviour
                 crown.transform.localPosition = new Vector3(0, 0.5f, 0);
             }
             //newEnnemy.gameObject.layer = LayerMask.NameToLayer("HideNavMesh");
+            if (isDefending)
+            {
+                newEnnemy.currentUnitMode = UnitMode.Defense;
+            }
             gameManager.AddEntityToEnnemyEntities(newEnnemy);
             newEnnemy.transform.SetParent(GameManager.Instance.team2Parent.transform);
         }
@@ -219,12 +284,12 @@ public class ArenaGenerator : MonoBehaviour
         var enemyCoordinates = arena.GetEnemyCoordinates();
         if (enemyCoordinates != null)
         {
-            foreach (var (enemyType, position) in enemyCoordinates)
+            foreach (var (enemyType, position, isKing, isDefending) in enemyCoordinates)
             {
                 if (position != null)
                 {
-                    
-                    GenerateEnnemy(enemyType, new Vector3(position.x * 2 - 9f, 0, position.y * 2 - 9f));
+                   
+                    GenerateEnnemy(enemyType, new Vector3(position.x * 2 - 9f, 0, position.y * 2 - 9f), isKing, isDefending);
                 }
                 else
                 {
