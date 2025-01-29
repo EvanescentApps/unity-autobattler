@@ -68,7 +68,7 @@ public class ArenaGenerator : MonoBehaviour
             }
 
             var coordinates = new List<(int, Vector2Int, bool, bool)>();
-            string[] pairs = enemyCoord.Split(';', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+            string[] pairs = enemyCoord.Split(';', StringSplitOptions.RemoveEmptyEntries);
             List<string> errors = new();
 
             for (int i = 0; i < pairs.Length; i++)
