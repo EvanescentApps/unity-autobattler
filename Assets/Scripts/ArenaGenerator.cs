@@ -100,19 +100,22 @@ public class ArenaGenerator : MonoBehaviour
                     continue;
                 }
 
-                if (!bool.TryParse(values[3], out bool isKing))
+                if (!int.TryParse(values[3], out int isKing))
                 {
                     errors.Add($"Pair {i}: Invalid king flag '{values[3]}'");
                     continue;
                 }
 
-                if (!bool.TryParse(values[4], out bool isDefending))
+                if (!int.TryParse(values[4], out int isDefending))
                 {
                     errors.Add($"Pair {i}: Invalid defending flag '{values[4]}'");
                     continue;
                 }
 
-                coordinates.Add((enemyType, new Vector2Int(x, y), isKing, isDefending));
+                bool isKingBool = isKing != 0;
+                bool isDefendingBool = isDefending != 0;
+
+                coordinates.Add((enemyType, new Vector2Int(x, y), isKingBool, isDefendingBool));
             }
 
             if (errors.Count > 0)
