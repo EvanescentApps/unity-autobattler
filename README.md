@@ -1,13 +1,16 @@
-# TheProject Unity
+# Unity autobattler
+Unity 3D game project for my Videogame architecture class.
+
 ![image](https://github.com/user-attachments/assets/5c3437fe-c519-4c18-a99b-fa527eea4b72)
 
+
 ## Comment jouer/How to play
+Télécharger le fichier game_build.zip, dézipper et démarrer l'éxécutable
 
 Download the game_build.zip file, unzip and run the executable
 
 ## Fonctionnalités
 - Ce jeu est inspiré de Totally Accurate Battle Simulator
-- Les attacks ne sont déclenchés que si on est sûre de toucher l'Ennemy
 
 ## Classes communes
 
